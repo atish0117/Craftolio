@@ -250,6 +250,19 @@ const MinimalistTemplate = ({ user, projects, sectionOrder, visibleSections }) =
               ))}
             </div>
 
+              {/* Navigation dots */}
+            <div className="fixed right-8 top-1/2 transform -translate-y-1/2 z-30 space-y-4">
+              {['hero', 'skills', 'experience', 'projects', 'contact'].map((section) => (
+                <button
+                  key={section}
+                  onClick={() => document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' })}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    activeSection === section ? 'bg-gray-900 scale-125' : 'bg-gray-300 hover:bg-gray-500'
+                  }`}
+                />
+              ))}
+            </div>
+
             <div className="relative z-10 flex items-center justify-center min-h-screen px-8">
               <div className="max-w-4xl mx-auto text-center">
                 <motion.div
