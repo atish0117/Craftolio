@@ -53,11 +53,9 @@ const MinimalistTemplate2 = ({ user, projects, sectionOrder, visibleSections }) 
       setIsScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('scroll', handleScroll);
     
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
@@ -95,14 +93,6 @@ const MinimalistTemplate2 = ({ user, projects, sectionOrder, visibleSections }) 
           <section className="min-h-screen bg-white relative overflow-hidden">
             {/* Interactive background elements */}
             <div className="absolute inset-0">
-              <div 
-                className="absolute w-96 h-96 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full blur-3xl opacity-60 transition-all duration-1000"
-               
-              />
-              <div 
-                className="absolute w-64 h-64 bg-gradient-to-r from-pink-50 to-orange-50 rounded-full blur-3xl opacity-40"
-               
-              />
               
               {/* Floating geometric shapes */}
               {[...Array(8)].map((_, i) => (
@@ -939,11 +929,7 @@ const MinimalistTemplate2 = ({ user, projects, sectionOrder, visibleSections }) 
         style={{ scaleX: scrollYProgress, transformOrigin: "0%" }}
       />
 
-      {/* Custom cursor */}
-      <div 
-        className="fixed w-4 h-4 bg-gray-900 rounded-full pointer-events-none z-50 mix-blend-difference transition-all duration-300"
-        
-      />
+    
       
       {sectionOrder.map((sectionId) => (
         <div key={sectionId}>

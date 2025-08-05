@@ -213,7 +213,7 @@ const MinimalistTemplate = ({ user, projects, sectionOrder, visibleSections }) =
           <section id="hero" className="min-h-screen bg-white relative overflow-hidden">
             {/* Interactive background elements */}
             <div className="absolute inset-0">
-              <div 
+              {/* <div 
                 className="absolute w-96 h-96 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full blur-3xl opacity-60 transition-all duration-1000"
                 style={{
                   left: mousePosition.x * 0.02,
@@ -226,7 +226,7 @@ const MinimalistTemplate = ({ user, projects, sectionOrder, visibleSections }) =
                   right: mousePosition.x * 0.01,
                   bottom: mousePosition.y * 0.01,
                 }}
-              />
+              /> */}
               
               {/* Floating geometric shapes */}
               {[...Array(8)].map((_, i) => (
@@ -1272,13 +1272,13 @@ const MinimalistTemplate = ({ user, projects, sectionOrder, visibleSections }) =
       />
 
       {/* Custom cursor */}
-      <div 
+      {/* <div 
         className="fixed w-4 h-4 bg-gray-900 rounded-full pointer-events-none z-50 mix-blend-difference transition-all duration-300"
         style={{
           left: mousePosition.x - 8,
           top: mousePosition.y - 8,
         }}
-      />
+      /> */}
       
       {sectionOrder.map((sectionId) => (
         <div key={sectionId}>
