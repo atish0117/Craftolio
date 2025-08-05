@@ -67,9 +67,6 @@ const MinimalistTemplate = ({ user, projects, sectionOrder, visibleSections }) =
     { id: 'about', label: 'About', icon: User },
     { id: 'skills', label: 'Skills', icon: Code },
     { id: 'experience', label: 'Experience', icon: Briefcase },
-    { id: 'education', label: 'Education', icon: GraduationCap },
-    { id: 'certifications', label: 'Certifications', icon: Award },
-    { id: 'testimonials', label: 'Testimonials', icon: MessageCircle },
     { id: 'projects', label: 'Projects', icon: Lightbulb },
     { id: 'contact', label: 'Contact', icon: Mail }
   ];
@@ -1200,11 +1197,11 @@ const MinimalistTemplate = ({ user, projects, sectionOrder, visibleSections }) =
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        className={`sticky top-0 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled ? 'bg-white/90 backdrop-blur-md shadow-sm' : 'bg-transparent'
         }`}
       >
-        <div className="max-w-6xl mx-auto px-8 py-4">
+        <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             {/* Logo */}
             <motion.div
@@ -1216,12 +1213,12 @@ const MinimalistTemplate = ({ user, projects, sectionOrder, visibleSections }) =
             </motion.div>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-8">
+            <div className="hidden lg:flex items-center space-x-6">
               {navigationItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                  className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
                     activeSection === item.id
                       ? 'bg-gray-100 text-gray-900'
                       : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'

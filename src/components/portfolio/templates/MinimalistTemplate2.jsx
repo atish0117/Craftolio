@@ -920,7 +920,7 @@ const MinimalistTemplate2 = ({ user, projects, sectionOrder, visibleSections }) 
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        className={`sticky top-0 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled ? 'bg-white/80 backdrop-blur-md shadow-sm' : 'bg-transparent'
         }`}
       >
