@@ -37,7 +37,6 @@ import BioRender from '../../ui/BioRender'; // Assuming BioRender is a component
 
 const MinimalistTemplate2 = ({ user, projects, sectionOrder, visibleSections }) => {
   const [activeSection, setActiveSection] = useState('hero');
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isScrolled, setIsScrolled] = useState(false);
   const [likedProjects, setLikedProjects] = useState(new Set());
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -48,9 +47,7 @@ const MinimalistTemplate2 = ({ user, projects, sectionOrder, visibleSections }) 
   const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
+    
 
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -100,17 +97,11 @@ const MinimalistTemplate2 = ({ user, projects, sectionOrder, visibleSections }) 
             <div className="absolute inset-0">
               <div 
                 className="absolute w-96 h-96 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full blur-3xl opacity-60 transition-all duration-1000"
-                style={{
-                  left: mousePosition.x * 0.02,
-                  top: mousePosition.y * 0.02,
-                }}
+               
               />
               <div 
                 className="absolute w-64 h-64 bg-gradient-to-r from-pink-50 to-orange-50 rounded-full blur-3xl opacity-40"
-                style={{
-                  right: mousePosition.x * 0.01,
-                  bottom: mousePosition.y * 0.01,
-                }}
+               
               />
               
               {/* Floating geometric shapes */}
@@ -951,10 +942,7 @@ const MinimalistTemplate2 = ({ user, projects, sectionOrder, visibleSections }) 
       {/* Custom cursor */}
       <div 
         className="fixed w-4 h-4 bg-gray-900 rounded-full pointer-events-none z-50 mix-blend-difference transition-all duration-300"
-        style={{
-          left: mousePosition.x - 8,
-          top: mousePosition.y - 8,
-        }}
+        
       />
       
       {sectionOrder.map((sectionId) => (
