@@ -318,10 +318,11 @@ import BioRender from '../../ui/BioRender'
 
 const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => {
   const [currentTheme, setCurrentTheme] = useState(0)
-  // const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isLoaded, setIsLoaded] = useState(false)
   const { scrollYProgress } = useScroll()
   
+  console.log(user)
+  console.log("Projects:", projects)
   const themes = [
     'from-pink-400 via-red-500 to-yellow-500',
     'from-purple-400 via-pink-500 to-red-500',
@@ -363,9 +364,6 @@ const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => 
     <div className={`relative ${className}`}>
       <motion.div
         className="absolute inset-0 opacity-30"
-        // style={{
-        //   background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255,255,255,0.1) 0%, transparent 50%)`
-        // }}
       />
       {children}
     </div>
@@ -428,8 +426,6 @@ const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => 
                 />
               ))}
             </motion.div>
-
-            {/* Music controls */}
             
             
             <div className="relative z-10 flex items-center justify-center min-h-screen px-4">
@@ -460,13 +456,7 @@ const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => 
                       {user.fullName?.charAt(0) || 'U'}
                     </motion.div>
                   )}
-                  {/* <motion.div
-                    className="absolute -top-4 -right-4 bg-yellow-400 rounded-full p-2"
-                    animate={{ rotate: [0, 360] }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                  >
-                    <Sparkles className="text-yellow-800" size={24} />
-                  </motion.div> */}
+                 
                 </motion.div>
                 
                 <motion.h1
@@ -476,10 +466,7 @@ const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => 
                   className="text-6xl md:text-8xl font-black text-white mb-6 transform -rotate-2 relative"
                   style={{ textShadow: '0 0 20px rgba(255,255,255,0.5)' }}
                 >
-                  <motion.span
-                    // animate={{ color: ['#ffffff', '#ff6b9d', '#c44569', '#ffffff'] }}
-                    // transition={{ duration: 3, repeat: Infinity }}
-                  >
+                  <motion.span>
                     {user.fullName || 'Creative Developer'}
                   </motion.span>
                 </motion.h1>
@@ -514,32 +501,38 @@ const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => 
                   transition={{ duration: 0.8, delay: 0.9 }}
                   className="flex justify-center space-x-4"
                 >
-                  <motion.button
+                  <motion.a
+                  href={user.resumeUrl} // Appwrite resume link
+                  target="_blank" // opens in new tab
+                  rel="noopener noreferrer"
                     whileHover={{ scale: 1.05, y: -5 }}
                     whileTap={{ scale: 0.95 }}
                     className="px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full font-bold shadow-lg hover:shadow-xl transition-all flex items-center space-x-2"
                   >
                     <Download size={20} />
-                    <span>Download CV</span>
-                  </motion.button>
-                  <motion.button
+                    <span>View CV</span>
+                  </motion.a>
+                  <motion.a
+                  href={user?.socialLinks?.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     whileHover={{ scale: 1.05, y: -5 }}
                     whileTap={{ scale: 0.95 }}
                     className="px-8 py-4 bg-white/20 backdrop-blur-sm text-white rounded-full font-bold border-2 border-white/30 hover:bg-white/30 transition-all flex items-center space-x-2"
                   >
                     <Eye size={20} />
                     <span>View Work</span>
-                  </motion.button>
+                  </motion.a>
                 </motion.div>
               </div>
             </div>
 
             <motion.div
-              className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+              className="absolute bottom-8 left-1/2 -m-8 transform -translate-x-1/2"
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              <ChevronDown className="text-white/70" size={32} />
+              <ChevronDown className="text-white/70" size={40} />
             </motion.div>
           </InteractiveBackground>
         )
@@ -1083,7 +1076,7 @@ const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => 
 
       case 'projects':
         return projects && projects.length > 0 ? (
-          <InteractiveBackground className="py-20 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative overflow-hidden">
+          <InteractiveBackground id="project" className=" py-20 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative overflow-hidden">
             <div 
               className="absolute inset-0 opacity-10"
               style={{
@@ -1094,7 +1087,7 @@ const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => 
               }}
             />
             
-            <div className="relative max-w-6xl mx-auto px-4">
+            <div className="relative max-w-5xl mx-auto px-4">
               <motion.div
                 initial={{ opacity: 0, y: -50 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -1110,113 +1103,116 @@ const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => 
               </motion.div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {projects.map((project, index) => (
-                  <motion.div
-                    key={project._id}
-                    initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: index * 0.2 }}
-                    whileHover={{ scale: 1.05, rotate: index % 2 === 0 ? 2 : -2, y: -10 }}
-                    className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 p-8 hover:border-white/40 transition-all duration-300"
-                  >
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-br from-pink-500/20 via-purple-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      initial={false}
-                    />
-                    
-                    <div className="relative z-10">
-                      <div className="flex items-center justify-between mb-4">
-                        <motion.div
-                          className="text-3xl"
-                          animate={{ rotate: [0, 10, -10, 0] }}
-                          transition={{ duration: 4, repeat: Infinity, delay: index * 0.5 }}
-                        >
-                          {index % 6 === 0 ? '🚀' : 
-                           index % 6 === 1 ? '💎' :
-                           index % 6 === 2 ? '⚡' :
-                           index % 6 === 3 ? '🔥' :
-                           index % 6 === 4 ? '🌟' : '💫'}
-                        </motion.div>
-                        <div className="flex space-x-2">
-                          <motion.div
-                            whileHover={{ scale: 1.1 }}
-                            className="flex items-center space-x-1 text-white/60 text-sm"
-                          >
-                            <Eye size={14} />
-                            <span>{Math.floor(Math.random() * 1000) + 100}</span>
-                          </motion.div>
-                          <motion.div
-                            whileHover={{ scale: 1.1 }}
-                            className="flex items-center space-x-1 text-white/60 text-sm"
-                          >
-                            <Heart size={14} />
-                            <span>{Math.floor(Math.random() * 100) + 10}</span>
-                          </motion.div>
-                        </div>
-                      </div>
-                      
-                      <h3 className="text-2xl font-bold text-white mb-4 transform group-hover:rotate-1 transition-transform group-hover:text-yellow-300">
-                        {project.title}
-                      </h3>
-                      
-                      {project.description && (
-                        <p className="text-white/80 mb-6 leading-relaxed">
-                          {project.description}
-                        </p>
-                      )}
-                      
-                      {project.techStack && project.techStack.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mb-6">
-                          {project.techStack.map((tech, techIndex) => (
-                            <motion.span
-                              key={tech}
-                              initial={{ opacity: 0, scale: 0 }}
-                              whileInView={{ opacity: 1, scale: 1 }}
-                              transition={{ delay: techIndex * 0.1 }}
-                              whileHover={{ scale: 1.1, y: -2 }}
-                              className={`px-3 py-1 rounded-full text-sm font-bold text-white cursor-pointer ${
-                                techIndex % 3 === 0 ? 'bg-pink-500/50 hover:bg-pink-500/70' :
-                                techIndex % 3 === 1 ? 'bg-purple-500/50 hover:bg-purple-500/70' :
-                                'bg-cyan-500/50 hover:bg-cyan-500/70'
-                              } transition-all duration-200`}
-                            >
-                              {tech}
-                            </motion.span>
-                          ))}
-                        </div>
-                      )}
-                      
-                      <div className="flex space-x-4">
-                        {project.githubLink && (
-                          <motion.a
-                            href={project.githubLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            whileHover={{ scale: 1.1, y: -2 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="px-6 py-3 bg-white/20 text-white rounded-full hover:bg-white/30 transition-all duration-300 font-bold transform flex items-center space-x-2 group/btn"
-                          >
-                            <Github size={18} className="group-hover/btn:rotate-12 transition-transform" />
-                            <span>Code</span>
-                          </motion.a>
-                        )}
-                        {project.liveLink && (
-                          <motion.a
-                            href={project.liveLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            whileHover={{ scale: 1.1, y: -2 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-full hover:from-pink-600 hover:to-purple-600 transition-all duration-300 font-bold transform flex items-center space-x-2 group/btn"
-                          >
-                            <ExternalLink size={18} className="group-hover/btn:rotate-12 transition-transform" />
-                            <span>Live</span>
-                          </motion.a>
-                        )}
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
+               {projects.map((project, index) => (
+  <motion.div
+    key={project._id}
+    initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
+    whileInView={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.8, delay: index * 0.2 }}
+    whileHover={{ scale: 1.05, rotate: index % 2 === 0 ? 2 : -2, y: -10 }}
+    className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 p-8 hover:border-white/40 transition-all duration-300"
+  >
+    {/* Optional colored overlay */}
+    <motion.div
+      className="absolute inset-0 bg-gradient-to-br from-pink-500/20 via-purple-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      initial={false}
+    />
+
+    <div className="relative z-10">
+      
+      {/* 🖼️ Project Image */}
+      {project.imageUrl && (
+        <div className="mb-4 rounded-2xl overflow-hidden">
+          <img
+            src={project.imageUrl}
+            alt={project.title}
+            className="w-full h-60 object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        </div>
+      )}
+
+      {/* Emoji and Title */}
+      <div className="flex items-center justify-between mb-4">
+        <motion.div
+          className="text-3xl"
+          animate={{ rotate: [0, 10, -10, 0] }}
+          transition={{ duration: 4, repeat: Infinity, delay: index * 0.5 }}
+        >
+          {index % 6 === 0 ? '🚀' :
+           index % 6 === 1 ? '💎' :
+           index % 6 === 2 ? '⚡' :
+           index % 6 === 3 ? '🔥' :
+           index % 6 === 4 ? '🌟' : '💫'}
+        </motion.div>
+      </div>
+
+      <h3 className="text-2xl font-bold text-white mb-4 transform group-hover:rotate-1 transition-transform group-hover:text-yellow-300">
+        {project.title}
+      </h3>
+
+      {project.description && (
+        <p className="text-white/80 mb-6 leading-relaxed h-16 overflow-hidden resize-y break-words">
+          {project.description}
+        </p>
+      )}
+
+      {/* Tech Stack */}
+      {project.techStack && project.techStack.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-6">
+          {project.techStack.map((tech, techIndex) => (
+            <motion.span
+              key={tech}
+              initial={{ opacity: 0, scale: 0 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: techIndex * 0.1 }}
+              whileHover={{ scale: 1.1, y: -2 }}
+              className={`px-3 py-1 rounded-full text-sm font-bold text-white cursor-pointer ${
+                techIndex % 3 === 0
+                  ? 'bg-pink-500/50 hover:bg-pink-500/70'
+                  : techIndex % 3 === 1
+                  ? 'bg-purple-500/50 hover:bg-purple-500/70'
+                  : 'bg-cyan-500/50 hover:bg-cyan-500/70'
+              } transition-all duration-200`}
+            >
+              {tech}
+            </motion.span>
+          ))}
+        </div>
+      )}
+
+      {/* Buttons */}
+      <div className="flex space-x-4">
+        {project.githubLink && (
+          <motion.a
+            href={project.githubLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.1, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-6 py-3 bg-white/20 text-white rounded-full hover:bg-white/30 transition-all duration-300 font-bold transform flex items-center space-x-2 group/btn"
+          >
+            <Github size={18} className="group-hover/btn:rotate-12 transition-transform" />
+            <span>Code</span>
+          </motion.a>
+        )}
+        {project.liveLink && (
+          <motion.a
+            href={project.liveLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.1, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-full hover:from-pink-600 hover:to-purple-600 transition-all duration-300 font-bold transform flex items-center space-x-2 group/btn"
+          >
+            <ExternalLink size={18} className="group-hover/btn:rotate-12 transition-transform" />
+            <span>Live</span>
+          </motion.a>
+        )}
+      </div>
+    </div>
+  </motion.div>
+))}
+
               </div>
             </div>
           </InteractiveBackground>
