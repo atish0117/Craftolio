@@ -602,7 +602,7 @@ const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => 
                          index % 8 === 5 ? '🎯' :
                          index % 8 === 6 ? '💫' : '🌟'}
                       </motion.div>
-                      <p className="text-lg">{skill}</p>
+                      <p className="text-lg">{skill.toUpperCase()}</p>
                       <motion.div
                         className="mt-2 h-1 bg-white/30 rounded-full overflow-hidden"
                         initial={{ width: 0 }}
@@ -625,7 +625,7 @@ const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => 
         ) : null
 
       case 'experience':
-        return user.experience && user.experience.length > 0 ? (
+        return user.experienceDetails && user.experienceDetails.length > 0 ? (
           <InteractiveBackground className="py-20 bg-gradient-to-br from-emerald-400 via-cyan-500 to-blue-600 relative overflow-hidden">
             <div 
               className="absolute inset-0 opacity-20"
@@ -657,7 +657,7 @@ const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => 
                 <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-white/30 rounded-full"></div>
                 
                 <div className="space-y-12">
-                  {user.experience.map((exp, index) => (
+                  {user.experienceDetails.map((exp, index) => (
                     <motion.div
                       key={index}
                       initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
@@ -689,19 +689,20 @@ const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => 
                           />
                           <span className="text-white/80 font-bold flex items-center space-x-2">
                             <Calendar size={16} />
-                            <span>{exp.startDate} - {exp.endDate || 'Present'}</span>
+                            <span>{exp.duration}</span>
                           </span>
                         </div>
                         <h3 className="text-2xl font-black text-white mb-2 group-hover:text-yellow-300 transition-colors">
-                          {exp.position}
+                          {exp.jobTitle}
                         </h3>
                         <h4 className="text-xl font-bold text-cyan-200 mb-4 flex items-center space-x-2">
                           <MapPin size={16} />
-                          <span>{exp.company}</span>
+                          <span>{exp.companyName}</span>
                         </h4>
-                        {exp.description && (
-                          <p className="text-white/90 leading-relaxed mb-4">{exp.description}</p>
-                        )}
+                       {exp.responsibilities && (
+  <p className="text-white/90 leading-relaxed mb-4">{exp.responsibilities}</p>
+)}
+
                         <div className="flex space-x-2">
                           <motion.div
                             whileHover={{ scale: 1.1 }}
@@ -784,7 +785,7 @@ const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => 
                         />
                         <span className="text-white/80 font-bold flex items-center space-x-2">
                           <Calendar size={16} />
-                          <span>{edu.startDate} - {edu.endDate || 'Present'}</span>
+                          <span>{edu.startYear} - {edu.endYear || 'Present'}</span>
                         </span>
                       </div>
                       
@@ -898,26 +899,21 @@ const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => 
                       </motion.div>
                       
                       <h3 className="text-lg font-black text-white mb-2 group-hover:text-yellow-300 transition-colors">
-                        {cert.name}
+                       {cert.title}
                       </h3>
                       <p className="text-white/80 font-bold mb-2 flex items-center justify-center space-x-1">
                         <Award size={16} />
-                        <span>{cert.issuer}</span>
+                         <span>{cert.platform}</span>
                       </p>
-                      {cert.date && (
-                        <p className="text-white/70 text-sm mb-2 flex items-center justify-center space-x-1">
-                          <Calendar size={14} />
-                          <span>{cert.date}</span>
-                        </p>
-                      )}
-                      {cert.credentialId && (
-                        <motion.p
-                          whileHover={{ scale: 1.05 }}
-                          className="text-white/60 text-xs mt-2 bg-white/10 rounded-full px-3 py-1"
-                        >
-                          ID: {cert.credentialId}
-                        </motion.p>
-                      )}
+                      <a href={cert.certificateLink} target="_blank" rel="noopener noreferrer">
+  <motion.button
+    whileHover={{ scale: 1.1 }}
+    whileTap={{ scale: 0.9 }}
+    className="p-2  bg-white/20 rounded-full text-white hover:bg-white/30 transition-all"
+  >
+    certificate Link
+  </motion.button>
+</a>
                       
                       <motion.div
                         className="mt-4 flex justify-center space-x-2"
@@ -925,20 +921,36 @@ const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => 
                         whileInView={{ opacity: 1 }}
                         transition={{ delay: index * 0.1 + 0.5 }}
                       >
-                        <motion.button
+                        <motion.a href={cert.certificateLink} target="_blank" rel="noopener noreferrer"
+
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
                           className="p-2 bg-white/20 rounded-full text-white hover:bg-white/30 transition-all"
-                        >
+                          >
                           <ExternalLink size={16} />
-                        </motion.button>
-                        <motion.button
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                          className="p-2 bg-white/20 rounded-full text-white hover:bg-white/30 transition-all"
-                        >
-                          <Share2 size={16} />
-                        </motion.button>
+                        </motion.a>
+                       <motion.button
+  whileHover={{ scale: 1.1 }}
+  whileTap={{ scale: 0.9 }}
+  className="p-2 bg-white/20 rounded-full text-white hover:bg-white/30 transition-all"
+  onClick={() => {
+    if (navigator.share) {
+      navigator
+        .share({
+          title: cert.title,
+          text: `Check out this certificate on ${cert.platform}`,
+          url: cert.certificateLink,
+        })
+        .then(() => console.log("Shared successfully"))
+        .catch((error) => console.error("Error sharing:", error));
+    } else {
+      alert("Sharing is not supported on this browser.");
+    }
+  }}
+>
+  <Share2 size={16} />
+</motion.button>
+
                       </motion.div>
                     </div>
                   </motion.div>
@@ -1147,7 +1159,7 @@ const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => 
       </div>
 
       <h3 className="text-2xl font-bold text-white mb-4 transform group-hover:rotate-1 transition-transform group-hover:text-yellow-300">
-        {project.title}
+        {project.title.toUpperCase()}
       </h3>
 
       {project.description && (
