@@ -163,7 +163,7 @@ const templates = [
     description: 'Clean, elegant design with subtle animations',
     preview: <Palette size={30} />,
     color: 'text-gray-600 bg-gradient-to-br from-gray-100 to-white',
-    features: ['Visual Portfolio', 'Image Gallery', 'Creative Sections']
+    features: ['Clean, elegant design', 'Interactive skill cards', 'Smooth scroll navigation']
   },
   {
     id: 'minimalist2',
@@ -179,7 +179,7 @@ const templates = [
     description: 'Futuristic design with glitch effects and neon colors',
     preview: <Zap size={30} />,
     color: 'text-cyan-400 bg-gradient-to-br from-purple-900 via-black to-cyan-900',
-    features: ['Visual Portfolio', 'Image Gallery', 'Creative Sections']
+    features: ['Futuristic design', 'Terminal-themed interface', 'Retro gaming aesthetics']
   },
   {
     id: 'Glassmorphism',
@@ -187,7 +187,7 @@ const templates = [
     description: 'Modern glass-like effects with beautiful transparency',
     preview: <Sparkles size={30} />,
     color: 'text-white bg-gradient-to-br from-purple-400 via-pink-500 to-red-500',
-    features: ['Visual Portfolio', 'Image Gallery', 'Creative Sections']
+    features: ['Glass-like effects', 'Interactive theme switcher', '3D hover effects']
   },
   {
     id: 'Retro',
@@ -195,7 +195,7 @@ const templates = [
     description: 'Nostalgic 70s-80s design with warm colors and playful elements',
     preview: <Camera size={30} />,
     color: 'text-amber-800 bg-gradient-to-br from-orange-300 via-yellow-200 to-red-300',
-    features: ['Visual Portfolio', 'Image Gallery', 'Creative Sections']
+    features: ['70s–80s nostalgia', 'Retro elements geometric shapes', 'Typography & colors']
   },
   {
     id: 'Nature',
@@ -203,7 +203,7 @@ const templates = [
     description: 'Earth-inspired design with natural elements and seasonal themes',
     preview: <Leaf size={30} />,
     color: 'text-green-700 bg-gradient-to-br from-green-300 via-blue-200 to-purple-200',
-    features: ['Visual Portfolio', 'Image Gallery', 'Creative Sections']
+    features: ['Nature-based theme', 'Organic visuals', 'Natural animations']
   },
    {
     id: 'black-white',
@@ -213,7 +213,7 @@ const templates = [
     // component: BlackWhiteTemplate,
     preview: <img src="/black.png" alt="" />,
     color: 'text-white',
-    features: ['Visual Portfolio', 'Image Gallery', 'Creative Sections']
+    features: ['Monochrome elegance', 'Geometric visuals', 'Sophisticated animations']
 
   }
 ]
