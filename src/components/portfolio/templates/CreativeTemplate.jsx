@@ -988,7 +988,7 @@ const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => 
                 <p className="text-xl text-white/80">Client testimonials and feedback</p>
               </motion.div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
                 {user.testimonials.map((testimonial, index) => (
                   <motion.div
                     key={index}
@@ -1011,8 +1011,8 @@ const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => 
                         "
                       </motion.div>
                       
-                      <p className="text-white/90 mb-6 leading-relaxed italic relative z-10">
-                        {testimonial.content}
+                      <p className="text-white/90 mb-6 leading-relaxed italic relative break-words z-10">
+                        {testimonial.message}
                       </p>
                       
                       <div className="flex items-center relative z-10">
@@ -1020,9 +1020,9 @@ const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => 
                           whileHover={{ scale: 1.1 }}
                           className="relative"
                         >
-                          {testimonial.avatar ? (
+                          {testimonial.imageUrl ? (
                             <img
-                              src={testimonial.avatar}
+                              src={testimonial.imageUrl}
                               alt={testimonial.name}
                               className="w-12 h-12 rounded-full object-cover mr-4 border-2 border-white/30"
                             />
@@ -1039,7 +1039,7 @@ const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => 
                         </motion.div>
                         <div>
                           <h4 className="text-white font-bold">{testimonial.name}</h4>
-                          <p className="text-white/70 text-sm">{testimonial.position}</p>
+                          <p className="text-white/70 text-sm">{testimonial.designation}</p>
                         </div>
                       </div>
                       
@@ -1346,7 +1346,7 @@ const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => 
                 transition={{ duration: 1, delay: 0.8 }}
                 className="text-white/60 text-sm"
               >
-                <p>© 2024 {user.fullName || 'Creative Developer'}. Made with ❤️ and lots of ☕</p>
+                <p>©  {user.fullName || 'Creative Developer'}. Made with ❤️ and lots of ☕</p>
               </motion.div>
             </div>
           </InteractiveBackground>
