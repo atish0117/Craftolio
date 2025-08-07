@@ -47,7 +47,7 @@ const SortableItem = ({ section, isVisible, onToggleVisibility }) => {
   }
 
   return (
-    <div
+    <motion.div
       ref={setNodeRef}
       style={style}
       className={`
@@ -56,7 +56,7 @@ const SortableItem = ({ section, isVisible, onToggleVisibility }) => {
         ${isVisible ? 'border-primary-200 dark:border-primary-800' : 'border-gray-200 dark:border-dark-600'}
         transition-all duration-200
       `}
-      whileHover={{ scale: isDragging ? 1.05 : 1.02 }}
+        whileHover={{ scale: isDragging ? 1 : 1 }} 
       {...attributes}
       {...listeners}
     >
@@ -99,7 +99,7 @@ const SortableItem = ({ section, isVisible, onToggleVisibility }) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
@@ -115,6 +115,8 @@ const SectionManager = () => {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   )
+
+  console.log( "visibleSections ", visibleSections )
 
   useEffect(() => {
     if (user?.sectionOrder) {
@@ -186,6 +188,8 @@ const SectionManager = () => {
     // backend update in background
     await dispatch(toggleSectionVisibility({ section: sectionId, visible })).unwrap();
     toast.success(`${sections.find(s => s.id === sectionId)?.label} ${visible ? 'enabled' : 'disabled'}`);
+
+    console.log(visible)
   } catch (error) {
     // if failed → rollback UI
     setVisibleSections(prev => ({ ...prev, [sectionId]: prevVisible }));
