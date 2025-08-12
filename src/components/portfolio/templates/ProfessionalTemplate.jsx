@@ -29,7 +29,8 @@ import {
   ChevronDown,
   Users,
   TrendingUp,
-  Shield
+  Shield,
+  Italic
 } from 'lucide-react';
 
 import BioRender from '../../ui/BioRender';
@@ -90,7 +91,7 @@ const ProjectCard = memo(({ project, index }) => {
       {/* Project image placeholder */}
       <div className="h-48 bg-gradient-to-br from-blue-50 to-indigo-100 relative overflow-hidden">
         <div className="absolute inset-0 flex items-center justify-center">
-          <Building className="w-16 h-16 text-blue-300" />
+          <img src={project.imageUrl} alt="" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         
@@ -108,8 +109,8 @@ const ProjectCard = memo(({ project, index }) => {
       </div>
 
       <div className="p-6">
-        <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
-          {project.title}
+        <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors ">
+          {project.title.toUpperCase()}
         </h3>
         
         {project.description && (
@@ -410,7 +411,7 @@ console.log("user email",user.email)
         return user.experienceDetails
                         && user.experienceDetails.length > 0 ? (
           <section className="py-20 bg-white">
-            <div className="max-w-4xl mx-auto px-4">
+            <div className="max-w-3xl mx-auto px-4">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -430,7 +431,7 @@ console.log("user email",user.email)
                 {/* Timeline line */}
                 <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-indigo-500"></div>
 
-                <div className="space-y-12">
+                <div className="space-y-12 max-w-2xl">
                   {user.experienceDetails.map((exp, index) => (
                     <motion.div
                       key={index}
@@ -670,7 +671,7 @@ console.log("user email",user.email)
                 >
                   <Quote className="w-12 h-12 text-blue-300 mb-6" />
                   
-                  <p className="text-xl text-gray-700 leading-relaxed mb-8 italic">
+                  <p className="text-xl text-gray-700 leading-relaxed mb-8 italic break-words">
                     "{user.testimonials[currentTestimonial].message}"
                   </p>
                   
