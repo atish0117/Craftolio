@@ -57,7 +57,7 @@ const MinimalistTemplate = ({ user, projects, sectionOrder, visibleSections }) =
   const [skillsInView, setSkillsInView] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [selectedSpecialization, setSelectedSpecialization] = useState('fullstack');
-  
+    console.log(user)
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
   const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
@@ -213,20 +213,6 @@ const MinimalistTemplate = ({ user, projects, sectionOrder, visibleSections }) =
           <section id="hero" className="min-h-screen bg-white relative overflow-hidden">
             {/* Interactive background elements */}
             <div className="absolute inset-0">
-              {/* <div 
-                className="absolute w-96 h-96 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full blur-3xl opacity-60 transition-all duration-1000"
-                style={{
-                  left: mousePosition.x * 0.02,
-                  top: mousePosition.y * 0.02,
-                }}
-              />
-              <div 
-                className="absolute w-64 h-64 bg-gradient-to-r from-pink-50 to-orange-50 rounded-full blur-3xl opacity-40"
-                style={{
-                  right: mousePosition.x * 0.01,
-                  bottom: mousePosition.y * 0.01,
-                }}
-              /> */}
               
               {/* Floating geometric shapes */}
               {[...Array(8)].map((_, i) => (
@@ -263,7 +249,7 @@ const MinimalistTemplate = ({ user, projects, sectionOrder, visibleSections }) =
               ))}
             </div>
 
-            <div className="relative z-10 flex items-center justify-center min-h-screen px-8">
+            <div className="relative z-10 pb-12 flex items-center justify-center min-h-screen px-8">
               <div className="max-w-4xl mx-auto text-center">
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
@@ -340,11 +326,11 @@ const MinimalistTemplate = ({ user, projects, sectionOrder, visibleSections }) =
                   </button>
                   
                   <button 
-                    onClick={() => scrollToSection('about')}
+                  
                     className="flex items-center space-x-3 px-8 py-4 border-2 border-gray-300 text-gray-700 rounded-full hover:border-gray-400 hover:bg-gray-50 transition-all duration-300 transform hover:scale-105"
                   >
                     <Eye className="w-5 h-5" />
-                    <span className="font-medium">Learn More</span>
+                    <span className="font-medium">Hire Me</span>
                   </button>
                 </motion.div>
 
@@ -360,7 +346,7 @@ const MinimalistTemplate = ({ user, projects, sectionOrder, visibleSections }) =
                     <div className="text-sm text-gray-500">Projects</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-900">{user.experienceDetails?.length || 0}</div>
+                    <div className="text-2xl font-bold text-gray-900">{user.workExperience || 0}</div>
                     <div className="text-sm text-gray-500">Experience</div>
                   </div>
                   <div className="text-center">
@@ -374,9 +360,10 @@ const MinimalistTemplate = ({ user, projects, sectionOrder, visibleSections }) =
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1.5 }}
-                  className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+                  className="absolute bottom-1 left-1/2 transform -translate-x-1/2 "
                 >
                   <motion.div
+                   onClick={() => scrollToSection('about')}
                     animate={{ y: [0, 10, 0] }}
                     transition={{ duration: 2, repeat: Infinity }}
                     className="flex flex-col items-center text-gray-400"
