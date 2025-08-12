@@ -28,22 +28,25 @@ import {
 } from 'lucide-react';
 import BioRender from '../../ui/BioRender';
 
-const TypeWriter = memo(({ text, delay = 0, speed = 50 }) => {
-  const [displayText, setDisplayText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
+
+const TypeWriter = ({ text, speed=100 }) => {
+  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (currentIndex < text.length) {
-        setDisplayText((prev) => prev + text[currentIndex]);
-        setCurrentIndex((prev) => prev + 1);
-      }
-    }, delay + currentIndex * speed);
+    if (index < text.length) {
+      const timeout = setTimeout(() => {
+        setDisplayedText(prev => prev + text.charAt(index));
+        setIndex(prev => prev + 1);
+      }, speed);
+      return () => clearTimeout(timeout);
+    }
+  }, [index, text, speed]);
 
-    return () => clearTimeout(timer);
-  }, [currentIndex, text, delay, speed]);
+  return <span>{displayedText}</span>;
+};
 
-});
+
 // Matrix rain effect component
 const MatrixRain = memo(() => {
   const [drops, setDrops] = useState([]);
@@ -95,15 +98,16 @@ const CodeBlock = memo(({ children, className = '' }) => (
 ));
 
 const DeveloperTemplate= ({ user, projects, sectionOrder, visibleSections }) => {
-  const [musicPlaying, setMusicPlaying] = useState(false);
-  const [likedProjects, setLikedProjects] = useState(new Set());
+  const [ok, setOk] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [activeSkill, setActiveSkill] = useState(null);
   const [currentCommand, setCurrentCommand] = useState(0);
 
   const { scrollYProgress } = useScroll();
   const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
+
+  console.log(user)
+  console.log(projects)
 
   const commands = [
     'npm install awesome-developer',
@@ -114,22 +118,12 @@ const DeveloperTemplate= ({ user, projects, sectionOrder, visibleSections }) => 
   ];
 
   // Terminal typing effect
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentCommand((prev) => (prev + 1) % commands.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Mouse tracking
-  const handleMouseMove = useCallback((e) => {
-    setMousePosition({ x: e.clientX, y: e.clientY });
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [handleMouseMove]);
+useEffect(() => {
+  const interval = setInterval(() => {
+    setCurrentCommand((prev) => (prev + 1) % commands.length);
+  }, 3000); // Har 3s pe change
+  return () => clearInterval(interval);
+}, []);
 
   // Auto-rotate testimonials
   useEffect(() => {
@@ -140,18 +134,6 @@ const DeveloperTemplate= ({ user, projects, sectionOrder, visibleSections }) => 
       return () => clearInterval(interval);
     }
   }, [user.testimonials]);
-
-  const toggleProjectLike = useCallback((projectId) => {
-    setLikedProjects(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(projectId)) {
-        newSet.delete(projectId);
-      } else {
-        newSet.add(projectId);
-      }
-      return newSet;
-    });
-  }, []);
 
   const renderSection = (sectionId) => {
     if (!visibleSections[sectionId]) return null;
@@ -167,10 +149,7 @@ const DeveloperTemplate= ({ user, projects, sectionOrder, visibleSections }) => 
             <div className="absolute inset-0">
               <motion.div
                 className="absolute w-96 h-96 bg-green-400/5 rounded-full blur-3xl"
-                animate={{
-                  x: mousePosition.x * 0.02,
-                  y: mousePosition.y * 0.02,
-                }}
+              
                 transition={{ type: "spring", stiffness: 50 }}
               />
               <div className="absolute top-20 left-20 w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
@@ -182,12 +161,12 @@ const DeveloperTemplate= ({ user, projects, sectionOrder, visibleSections }) => 
             {/* Music control */}
             <div className="absolute top-8 right-8 z-20">
               <motion.button
-                onClick={() => setMusicPlaying(!musicPlaying)}
+                onClick={() => setOk(!ok)}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 className="p-3 bg-gray-800/80 backdrop-blur-sm border border-green-400 rounded-full text-green-400 hover:bg-green-400 hover:text-gray-900 transition-all"
               >
-                {musicPlaying ? <Coffee className="w-5 h-5" /> : <Zap className="w-5 h-5" />}
+                {ok ? <Coffee className="w-5 h-5" /> : <Zap className="w-5 h-5" />}
               </motion.button>
             </div>
             
@@ -206,6 +185,7 @@ const DeveloperTemplate= ({ user, projects, sectionOrder, visibleSections }) => 
                   >
                     <span className="text-green-400 font-mono text-sm">
                       <TypeWriter text="// Welcome to my interactive portfolio" delay={500} />
+                      
                     </span>
                   </motion.div>
                   
@@ -250,32 +230,35 @@ const DeveloperTemplate= ({ user, projects, sectionOrder, visibleSections }) => 
                     </motion.div>
                   )}
 
+                
                   {/* Terminal simulation */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 2 }}
-                    className="bg-black border border-green-400 rounded-lg p-4 mb-6"
-                  >
-                    <div className="flex items-center space-x-2 mb-2">
-                      <Terminal className="w-4 h-4 text-green-400" />
-                      <span className="text-green-400 font-mono text-sm">terminal</span>
-                    </div>
-                    <div className="font-mono text-sm">
-                      <span className="text-green-400">$ </span>
-                      <TypeWriter 
-                        text={commands[currentCommand]} 
-                        key={currentCommand}
-                        speed={100}
-                      />
-                    </div>
-                  </motion.div>
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 2 }}
+  className="bg-black/90 border border-green-400 rounded-lg p-4 mb-6 shadow-lg shadow-green-500/20"
+>
+  <div className="flex items-center space-x-2 mb-2">
+    <Terminal className="w-4 h-4 text-green-400" />
+    <span className="text-green-400 font-mono text-sm">terminal</span>
+  </div>
+  <div className="font-mono text-sm">
+    <span className="text-green-400">$ </span>
+    <TypeWriter 
+      text={commands[currentCommand]} 
+        key={currentCommand}
+      speed={100}
+    />
+    <span className="animate-pulse text-green-400">█</span>
+  </div>
+</motion.div>
+
                   
                   <motion.div 
                     className="flex flex-wrap gap-4"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 2.5 }}
+                    transition={{ delay: 2 }}
                   >
                     {user.socialLinks?.github && (
                       <motion.a
@@ -460,7 +443,7 @@ const DeveloperTemplate= ({ user, projects, sectionOrder, visibleSections }) => 
         ) : null;
 
       case 'experience':
-        return user.experience && user.experience.length > 0 ? (
+        return user.experienceDetails && user.experienceDetails.length > 0 ? (
           <section className="py-20 bg-gray-900 relative">
             <div className="max-w-6xl mx-auto px-4">
               <motion.div
@@ -480,7 +463,7 @@ const DeveloperTemplate= ({ user, projects, sectionOrder, visibleSections }) => 
                 <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-green-400 to-blue-400"></div>
 
                 <div className="space-y-8">
-                  {user.experience.map((exp, index) => (
+                  {user.experienceDetails.map((exp, index) => (
                     <motion.div
                       key={index}
                       initial={{ opacity: 0, x: -50 }}
@@ -496,28 +479,42 @@ const DeveloperTemplate= ({ user, projects, sectionOrder, visibleSections }) => 
                         whileHover={{ scale: 1.5 }}
                         transition={{ type: "spring", stiffness: 300 }}
                       />
-                      
-                      <div className="bg-gray-800 border border-gray-700 rounded-lg p-6 hover:border-green-400 transition-all duration-300 group">
+
+                      <div className="bg-gray-800 border border-gray-700 max-w-3xl rounded-lg p-6 hover:border-green-400 transition-all duration-300 group">
                         <div className="flex items-start justify-between mb-4">
                           <div>
                             <h3 className="text-xl font-bold text-white group-hover:text-green-400 transition-colors flex items-center">
                               <Briefcase className="w-5 h-5 mr-2" />
-                              {exp.position}
+                              {exp.jobTitle}
                             </h3>
                             <div className="flex items-center text-gray-400 mt-1">
                               <Building className="w-4 h-4 mr-2" />
-                              <span className="font-mono">{exp.company}</span>
+                              <span className="font-mono">{exp.companyName}</span>
                             </div>
                           </div>
                           <div className="flex items-center text-green-400 font-mono text-sm">
                             <Calendar className="w-4 h-4 mr-2" />
-                            {exp.startDate} - {exp.endDate}
+                            {exp.duration}
                           </div>
                         </div>
                         
-                        <p className="text-gray-300 leading-relaxed mb-4">{exp.description}</p>
+                        <p className="text-gray-300 leading-relaxed mb-4">{exp.responsibilities}</p>
                         
                         <div className="flex flex-wrap gap-2">
+
+                             {exp.skills.map((s, i) => (
+                            <motion.span
+                              key={i}
+                              initial={{ opacity: 0, scale: 0 }}
+                              whileInView={{ opacity: 1, scale: 1 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: index * 0.2 + i * 0.1 }}
+                              whileHover={{ scale: 1.1 }}
+                              className="px-3 py-1 bg-green-400/20 text-green-400 rounded-full text-sm font-mono border border-green-400/30"
+                            >
+                              {s}
+                            </motion.span>
+                               ))}
                           {['Leadership', 'Innovation', 'Growth', 'Team Building'].map((achievement, i) => (
                             <motion.span
                               key={i}
@@ -599,7 +596,7 @@ const DeveloperTemplate= ({ user, projects, sectionOrder, visibleSections }) => 
                     
                     <div className="flex items-center text-green-400 font-mono text-sm mb-4">
                       <Calendar className="w-4 h-4 mr-2" />
-                      {edu.startDate} - {edu.endDate}
+                      {edu.startYear} - {edu.endYear}
                     </div>
                     
                     {edu.description && (
@@ -662,11 +659,18 @@ const DeveloperTemplate= ({ user, projects, sectionOrder, visibleSections }) => 
                       </motion.div>
                       <div className="flex-1">
                         <h3 className="text-lg font-bold text-gray-800 group-hover:text-orange-600 transition-colors">
-                          {cert.name}
+                          {cert.title}
                         </h3>
                         <p className="text-gray-600 font-mono text-sm">{cert.issuer}</p>
+                          {cert.platform && (
+      <p className="text-xs text-gray-500 mt-1 font-mono">
+        Platform: {cert.platform}
+      </p>
+    )}
                       </div>
                     </div>
+
+                    
                     
                     <div className="flex items-center text-gray-500 text-sm mb-3">
                       <Calendar className="w-4 h-4 mr-2" />
@@ -678,6 +682,16 @@ const DeveloperTemplate= ({ user, projects, sectionOrder, visibleSections }) => 
                         ID: {cert.credentialId}
                       </div>
                     )}
+                    {cert.certificateLink && (
+  <a
+    href={cert.certificateLink}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block text-xs text-blue-600 hover:underline mb-3"
+  >
+    View Certificate
+  </a>
+)}
                     
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-green-600 font-bold flex items-center">
@@ -738,14 +752,14 @@ const DeveloperTemplate= ({ user, projects, sectionOrder, visibleSections }) => 
                   <Quote className="w-16 h-16 text-green-400/20 absolute top-4 left-4" />
                   
                   <div className="relative z-10">
-                    <p className="text-xl text-gray-300 italic leading-relaxed mb-6 pl-12">
-                      "{user.testimonials[currentTestimonial].content}"
+                    <p className="text-xl text-gray-300 italic leading-relaxed mb-6 pl-12 break-words">
+                      "{user.testimonials[currentTestimonial].message}"
                     </p>
                     
                     <div className="flex items-center justify-between">
                       <div className="flex items-center">
                         <motion.img
-                          src={user.testimonials[currentTestimonial].avatar}
+                          src={user.testimonials[currentTestimonial].imageUrl}
                           alt={user.testimonials[currentTestimonial].name}
                           className="w-12 h-12 rounded-full object-cover mr-4 border-2 border-green-400"
                           whileHover={{ scale: 1.1 }}
@@ -755,7 +769,7 @@ const DeveloperTemplate= ({ user, projects, sectionOrder, visibleSections }) => 
                             {user.testimonials[currentTestimonial].name}
                           </div>
                           <div className="text-gray-400 font-mono text-sm">
-                            {user.testimonials[currentTestimonial].position}
+                            {user.testimonials[currentTestimonial].designation}
                           </div>
                         </div>
                       </div>
@@ -795,134 +809,118 @@ const DeveloperTemplate= ({ user, projects, sectionOrder, visibleSections }) => 
           </section>
         ) : null;
 
-      case 'projects':
-        return projects && projects.length > 0 ? (
-          <section className="py-20 bg-gray-900 relative">
-            <div className="max-w-6xl mx-auto px-4">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="mb-12"
-              >
-                <span className="text-green-400 font-mono text-sm">// Featured repositories</span>
-                <h2 className="text-4xl font-bold text-white font-mono mt-2">
-                  <TypeWriter text="projects.filter(p => p.featured)" delay={200} />
-                </h2>
-              </motion.div>
-              
-              <div className="space-y-8">
-                {projects.map((project, index) => (
-                  <motion.div
-                    key={project._id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    className="bg-gray-800 border border-gray-700 rounded-lg overflow-hidden hover:border-green-400 transition-all duration-300 group"
-                  >
-                    <div className="p-6">
-                      <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center space-x-3">
-                          <motion.div
-                            whileHover={{ rotate: 360 }}
-                            transition={{ duration: 0.5 }}
-                          >
-                            <Github className="w-6 h-6 text-green-400" />
-                          </motion.div>
-                          <h3 className="text-xl font-bold text-white font-mono group-hover:text-green-400 transition-colors">
-                            {project.title}
-                          </h3>
-                        </div>
-                        <div className="flex items-center space-x-4">
-                          <span className="text-green-400 font-mono text-sm">Public</span>
-                          <motion.button
-                            onClick={() => toggleProjectLike(project._id)}
-                            whileHover={{ scale: 1.2 }}
-                            whileTap={{ scale: 0.9 }}
-                            className="flex items-center space-x-1 text-gray-400 hover:text-red-400 transition-colors"
-                          >
-                            <Heart 
-                              className={`w-5 h-5 ${
-                                likedProjects.has(project._id) ? 'text-red-400 fill-current' : ''
-                              }`} 
-                            />
-                            <span className="text-sm">{Math.floor(Math.random() * 50) + 10}</span>
-                          </motion.button>
-                        </div>
-                      </div>
-                      
-                      {project.description && (
-                        <p className="text-gray-300 mb-4 leading-relaxed">
-                          {project.description}
-                        </p>
-                      )}
-                      
-                      {project.techStack && project.techStack.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          {project.techStack.map((tech, techIndex) => (
-                            <motion.span
-                              key={tech}
-                              initial={{ opacity: 0, scale: 0 }}
-                              whileInView={{ opacity: 1, scale: 1 }}
-                              viewport={{ once: true }}
-                              transition={{ delay: techIndex * 0.1 }}
-                              whileHover={{ scale: 1.1 }}
-                              className="px-3 py-1 bg-gray-700 text-gray-300 rounded-full text-sm font-mono border border-gray-600 hover:border-green-400 transition-colors cursor-pointer"
-                            >
-                              {tech}
-                            </motion.span>
-                          ))}
-                        </div>
-                      )}
-                      
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-6 text-sm text-gray-400 font-mono">
-                          {project.githubLink && (
-                            <motion.a
-                              href={project.githubLink}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              whileHover={{ scale: 1.1, y: -2 }}
-                              className="flex items-center space-x-2 hover:text-green-400 transition-colors"
-                            >
-                              <Github className="w-4 h-4" />
-                              <span>Source</span>
-                            </motion.a>
-                          )}
-                          {project.liveLink && (
-                            <motion.a
-                              href={project.liveLink}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              whileHover={{ scale: 1.1, y: -2 }}
-                              className="flex items-center space-x-2 hover:text-blue-400 transition-colors"
-                            >
-                              <ExternalLink className="w-4 h-4" />
-                              <span>Demo</span>
-                            </motion.a>
-                          )}
-                        </div>
-                        
-                        <div className="flex items-center space-x-4 text-sm text-gray-400">
-                          <div className="flex items-center space-x-1">
-                            <Eye className="w-4 h-4" />
-                            <span>{Math.floor(Math.random() * 200) + 50}</span>
-                          </div>
-                          <div className="flex items-center space-x-1">
-                            <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                            <span>JavaScript</span>
-                          </div>
-                        </div>
-                      </div>
+     case 'projects':
+  return projects && projects.length > 0 ? (
+    <section className="py-20 bg-gray-900 relative">
+      <div className="max-w-5xl mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-12 text-center"
+        >
+          <span className="text-green-400 font-mono text-sm">// Featured repositories</span>
+          <h2 className="text-4xl font-bold text-white font-mono mt-2">
+            <TypeWriter text="projects.filter(p => p.featured)" delay={200} />
+          </h2>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          {projects.map((project, index) => (
+            <motion.div
+              key={project._id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              whileHover={{ scale: 1.02, y: -5 }}
+              className="relative rounded-xl overflow-hidden border border-gray-700 hover:border-green-400 transition-all duration-300 group"
+              style={{
+                backgroundImage: project.imageUrl ? `url(${project.imageUrl})` : undefined,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            >
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-black/70 group-hover:bg-black/60 transition-colors"></div>
+
+              {/* Content */}
+              <div className="relative p-6 flex flex-col h-full justify-between">
+                <div>
+                  <div className="flex items-center  justify-between space-x-3 mb-4">
+                    <div>
+                      <motion.div whileHover={{ rotate: 360 }} transition={{ duration: 0.5 }}>
+                        <Github className="w-6 h-6 text-green-400" />
+                      </motion.div>
+                    <h3 className="text-xl font-bold text-white font-mono group-hover:text-green-400 transition-colors">
+                      {project.title.toUpperCase()}
+                    </h3>
                     </div>
-                  </motion.div>
-                ))}
+                     <div className="flex items-center space-x-4 ">
+                    <span className="text-green-400 font-mono text-sm">{project.status}</span>
+                  </div>
+                  </div>
+
+                  {project.description && (
+                    <p className="text-gray-300 mb-4 leading-relaxed break-words">
+                      {project.description}
+                    </p>
+                  )}
+
+                  {project.techStack?.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {project.techStack.map((tech, techIndex) => (
+                        <motion.span
+                          key={tech}
+                          initial={{ opacity: 0, scale: 0 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: techIndex * 0.1 }}
+                          whileHover={{ scale: 1.1 }}
+                          className="px-3 py-1 bg-gray-700/80 text-gray-300 rounded-full text-sm font-mono border border-gray-600 hover:border-green-400 transition-colors cursor-pointer backdrop-blur-sm"
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Links */}
+                <div className="flex items-center space-x-6 text-sm text-gray-300 font-mono mt-4">
+                  {project.githubLink && (
+                    <motion.a
+                      href={project.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.1, y: -2 }}
+                      className="flex items-center space-x-2 hover:text-green-400 transition-colors"
+                    >
+                      <Github className="w-4 h-4" />
+                      <span>Source</span>
+                    </motion.a>
+                  )}
+                  {project.liveLink && (
+                    <motion.a
+                      href={project.liveLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.1, y: -2 }}
+                      className="flex items-center space-x-2 hover:text-blue-400 transition-colors"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      <span>Demo</span>
+                    </motion.a>
+                  )}
+                </div>
               </div>
-            </div>
-          </section>
-        ) : null;
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  ) : null;
+
 
       case 'contact':
         return (
