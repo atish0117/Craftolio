@@ -183,8 +183,6 @@ const ProfessionalTemplate = ({ user, projects, sectionOrder, visibleSections })
   const [isScrolled, setIsScrolled] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [activeSection, setActiveSection] = useState('hero');
-console.log(user)
-console.log("user email",user.email)
   const { scrollYProgress } = useScroll();
   const springScrollProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 

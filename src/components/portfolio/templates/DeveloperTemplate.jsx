@@ -106,8 +106,6 @@ const DeveloperTemplate= ({ user, projects, sectionOrder, visibleSections }) => 
   const { scrollYProgress } = useScroll();
   const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
 
-  console.log(user)
-  console.log(projects)
 
   const commands = [
     'npm install awesome-developer',

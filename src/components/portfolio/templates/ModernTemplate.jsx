@@ -268,7 +268,6 @@ const ModernTemplate = ({ user, projects, sectionOrder, visibleSections }) => {
 
   const { scrollYProgress } = useScroll();
   const springScrollProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
-console.log(user)
   // Theme configurations
   const themes = [
     {
