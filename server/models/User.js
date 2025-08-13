@@ -10,13 +10,42 @@ const userSchema = new mongoose.Schema(
     profileImgUrl: { type: String, default: "" },
     resumeUrl: { type: String, default: "" },
     title: String,
+     phoneNumber: String,
+    location: String,
+    intro: String, // Short intro about the user
     bio: String,
     socialLinks: {
       github: String,
       linkedin: String,
       twitter: String,
+      instagram: String,
+      dribbble: String,
+      behance: String,
+      website: String,
+      
     },
     skills: [String],
+
+      aboutSections: [{
+      id: String,
+      title: String,
+      description: String,
+      order: { type: Number, default: 0 }
+    }],
+      languages: [String],
+      timezone: String,
+      hourlyRate: String,
+
+    preferredWorkType: {
+      type: String,
+      enum: ["remote", "onsite", "hybrid", "freelance"],
+      default: "remote"
+    },
+     availability: {
+      type: String,
+      enum: ["available", "busy", "not-available"],
+      default: "available"
+    },
     workExperience: {
       type: String,
       default: "Fresher",
@@ -41,7 +70,7 @@ const userSchema = new mongoose.Schema(
     ],
     sectionOrder: {
       type: [String],
-      default: ["hero", "skills", "projects", "education", "experience", "certifications", "testimonials", "contact"]
+      default: ["hero", "about","skills", "projects", "education", "experience", "certifications", "testimonials", "contact"]
     },
     visibleSections: {
       type: Map,
@@ -49,6 +78,7 @@ const userSchema = new mongoose.Schema(
      default: function() {
         return new Map([
           ['hero', true],
+          ['about', true],
           ['skills', true],
           ['projects', true],
           ['education', true],

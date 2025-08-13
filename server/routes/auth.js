@@ -58,9 +58,18 @@ router.post('/register', [
         profileImgUrl: user.profileImgUrl,
         resumeUrl: user.resumeUrl,
         title: user.title,
+        phoneNumber: user.phoneNumber,
+        location: user.location,
+        intro: user.intro,
         bio: user.bio,
         socialLinks: user.socialLinks,
         skills: user.skills,
+        aboutSections: user.aboutSections,
+        availability: user.availability,
+        hourlyRate: user.hourlyRate,
+        preferredWorkType: user.preferredWorkType,
+        languages: user.languages,
+        timezone: user.timezone,
         workExperience: user.workExperience,
         experienceDetails: user.experienceDetails,
         education: user.education,
@@ -120,9 +129,18 @@ router.post('/login', [
         profileImgUrl: user.profileImgUrl,
         resumeUrl: user.resumeUrl,
         title: user.title,
+        phoneNumber: user.phoneNumber,
+        location: user.location,
+        intro: user.intro,
         bio: user.bio,
         socialLinks: user.socialLinks,
         skills: user.skills,
+        aboutSections: user.aboutSections,
+        availability: user.availability,
+        hourlyRate: user.hourlyRate,
+        preferredWorkType: user.preferredWorkType,
+        languages: user.languages,
+        timezone: user.timezone,
         workExperience: user.workExperience,
         experienceDetails: user.experienceDetails,
         education: user.education,
@@ -151,9 +169,18 @@ router.get('/profile', auth, async (req, res) => {
         profileImgUrl: req.user.profileImgUrl,
         resumeUrl: req.user.resumeUrl,
         title: req.user.title,
+         phoneNumber: req.user.phoneNumber,
+        location: req.user.location,
+        intro: req.user.intro,
         bio: req.user.bio,
         socialLinks: req.user.socialLinks,
         skills: req.user.skills,
+        aboutSections: req.user.aboutSections,
+        availability: req.user.availability,
+        hourlyRate: req.user.hourlyRate,
+        preferredWorkType: req.user.preferredWorkType,
+        languages: req.user.languages,
+        timezone: req.user.timezone,
         workExperience: req.user.workExperience,
         experienceDetails: req.user.experienceDetails,
         education: req.user.education,
@@ -176,8 +203,17 @@ router.put('/profile', auth, async (req, res) => {
     const {
       fullName,
       title,
+      phoneNumber,
+      location,
+      intro,
       bio,
       skills,
+      aboutSections,
+      availability,
+      hourlyRate,
+      preferredWorkType,
+      languages,
+      timezone,
       workExperience,
       socialLinks,
       profileImgUrl,
@@ -193,19 +229,30 @@ router.put('/profile', auth, async (req, res) => {
       profileImgUrl,
       resumeUrl,
       fullName,
-      title
+      title,
+      phoneNumber,
+      location
     })
 
     const updateData = {}
     
     if (fullName) updateData.fullName = fullName
     if (title !== undefined) updateData.title = title
+    if (phoneNumber !== undefined) updateData.phoneNumber = phoneNumber
+    if (location !== undefined) updateData.location = location
+    if (intro !== undefined) updateData.intro = intro
     if (bio !== undefined) updateData.bio = bio
     if (skills) updateData.skills = skills
     if (workExperience) updateData.workExperience = workExperience
     if (socialLinks) updateData.socialLinks = socialLinks
     if (profileImgUrl !== undefined) updateData.profileImgUrl = profileImgUrl
     if (resumeUrl !== undefined) updateData.resumeUrl = resumeUrl
+     if (aboutSections) updateData.aboutSections = aboutSections
+    if (availability) updateData.availability = availability
+    if (hourlyRate !== undefined) updateData.hourlyRate = hourlyRate
+    if (preferredWorkType) updateData.preferredWorkType = preferredWorkType
+    if (languages) updateData.languages = languages
+    if (timezone !== undefined) updateData.timezone = timezone
     if (experienceDetails) updateData.experienceDetails = experienceDetails
     if (education) updateData.education = education
     if (testimonials) updateData.testimonials = testimonials
@@ -238,9 +285,18 @@ router.put('/profile', auth, async (req, res) => {
         profileImgUrl: user.profileImgUrl,
         resumeUrl: user.resumeUrl,
         title: user.title,
+        phoneNumber: user.phoneNumber,
+        location: user.location,
+        intro: user.intro,
         bio: user.bio,
         socialLinks: user.socialLinks,
         skills: user.skills,
+        aboutSections: user.aboutSections,
+        availability: user.availability,
+        hourlyRate: user.hourlyRate,
+        preferredWorkType: user.preferredWorkType,
+        languages: user.languages,
+        timezone: user.timezone,
         workExperience: user.workExperience,
         experienceDetails: user.experienceDetails,
         education: user.education,

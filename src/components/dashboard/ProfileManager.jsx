@@ -231,6 +231,159 @@ const ProfileManager = () => {
           </motion.div>
         )}
 
+        {activeSection === 'about' && (
+            <motion.div
+            key="about"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            className="space-y-6"
+          >
+            <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Short Intro
+              </label>
+              <input
+                type="text"
+                name="intro"
+                value={profileData.intro}
+                onChange={handleInputChange}
+                placeholder="e.g., Passionate developer who loves creating amazing user experiences"
+                className="input-field"
+                maxLength={150}
+              />
+               <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                {profileData.intro.length}/150 characters
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+               <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Availability
+                </label>
+                <select
+                  name="availability"
+                  value={profileData.availability}
+                  onChange={handleInputChange}
+                  className="input-field"
+                >
+                  <option value="available">Available for work</option>
+                  <option value="busy">Busy</option>
+                  <option value="not-available">Not available</option>
+                </select>
+              </div>
+            </div>
+
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                   <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Hourly Rate (Optional)
+                </label>
+                <input
+                  type="text"
+                  name="hourlyRate"
+                  value={profileData.hourlyRate}
+                  onChange={handleInputChange}
+                  placeholder="e.g., $50/hour"
+                  className="input-field"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Preferred Work Type
+                </label>
+                <select
+                  name="preferredWorkType"
+                  value={profileData.preferredWorkType}
+                  onChange={handleInputChange}
+                  className="input-field"
+                >
+                  <option value="remote">Remote</option>
+                  <option value="onsite">On-site</option>
+                  <option value="hybrid">Hybrid</option>
+                  <option value="freelance">Freelance</option>
+                </select>
+              </div>
+                 </div>
+
+                  <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Languages (comma-separated)
+              </label>
+              <input
+                type="text"
+                name="languages"
+                value={profileData.languages}
+                onChange={handleInputChange}
+                placeholder="English, Spanish, French"
+                className="input-field"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Timezone
+              </label>
+              <input
+                type="text"
+                name="timezone"
+                value={profileData.timezone}
+                onChange={handleInputChange}
+                placeholder="e.g., UTC+5:30, EST, PST"
+                className="input-field"
+              />
+            </div>
+
+
+          </motion.div>
+        )}
+
+          {activeSection === 'contact' && (
+          <motion.div
+            key="contact"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            className="space-y-6"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <span className="flex items-center space-x-2">
+                    <span>📞</span>
+                    <span>Phone Number</span>
+                  </span>
+                </label>
+                <input
+                  type="tel"
+                  name="phoneNumber"
+                  value={profileData.phoneNumber}
+                  onChange={handleInputChange}
+                  placeholder="+1 (555) 123-4567"
+                  className="input-field"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <span className="flex items-center space-x-2">
+                    <span>📍</span>
+                    <span>Location</span>
+                  </span>
+                </label>
+                <input
+                  type="text"
+                  name="location"
+                  value={profileData.location}
+                  onChange={handleInputChange}
+                  placeholder="New York, NY"
+                  className="input-field"
+                />
+              </div>
+            </div>
+          </motion.div>
+        )}
+
         {activeSection === 'social' && (
           <motion.div
             key="social"
@@ -290,6 +443,74 @@ const ProfileManager = () => {
                   className="input-field"
                 />
               </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <span className="flex items-center space-x-2">
+                    <span>📷</span>
+                    <span>Instagram</span>
+                  </span>
+                </label>
+                <input
+                  type="url"
+                  name="socialLinks.instagram"
+                  value={profileData.socialLinks.instagram}
+                  onChange={handleInputChange}
+                  placeholder="https://instagram.com/username"
+                  className="input-field"
+                />
+              </div>
+
+                 <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <span className="flex items-center space-x-2">
+                    <span>🏀</span>
+                    <span>Dribbble</span>
+                  </span>
+                </label>
+                <input
+                  type="url"
+                  name="socialLinks.dribbble"
+                  value={profileData.socialLinks.dribbble}
+                  onChange={handleInputChange}
+                  placeholder="https://dribbble.com/username"
+                  className="input-field"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <span className="flex items-center space-x-2">
+                    <span>🎨</span>
+                    <span>Behance</span>
+                  </span>
+                </label>
+                <input
+                  type="url"
+                  name="socialLinks.behance"
+                  value={profileData.socialLinks.behance}
+                  onChange={handleInputChange}
+                  placeholder="https://behance.net/username"
+                  className="input-field"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <span className="flex items-center space-x-2">
+                    <span>🌐</span>
+                    <span>Personal Website</span>
+                  </span>
+                </label>
+                <input
+                  type="url"
+                  name="socialLinks.website"
+                  value={profileData.socialLinks.website}
+                  onChange={handleInputChange}
+                  placeholder="https://yourwebsite.com"
+                  className="input-field"
+                />
+              </div>
+
             </div>
 
             <div className="card p-6 bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800">
@@ -297,9 +518,12 @@ const ProfileManager = () => {
                 💡 Pro Tips for Social Links
               </h3>
               <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
-                <li>• Use your professional GitHub profile to showcase your code</li>
-                <li>• LinkedIn helps with professional networking and credibility</li>
+                <li>• GitHub: Showcase your code and contributions</li>
+                <li>• LinkedIn: Professional networking and credibility</li>
+                <li>• Instagram: Personal brand and behind-the-scenes content</li>
+                <li>• Dribbble/Behance: Design portfolio and creative work</li>
                 <li>• Twitter can show your industry engagement and thought leadership</li>
+                <li>• Personal Website: Your main online presence</li>
                 <li>• Make sure your profiles are public and professional</li>
               </ul>
             </div>

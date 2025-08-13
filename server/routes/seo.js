@@ -91,13 +91,14 @@ const generateSeoSuggestions = (user) => {
       ...(user.skills || []),
       user.fullName.split(' '),
       user.title?.split(' ') || [],
+      user.location?.split(' ') || [],
       'portfolio',
       'professional',
       user.workExperience?.includes('Senior') ? 'senior' : user.workExperience?.includes('Junior') ? 'junior' : 'experienced',
       ...(user.experienceDetails?.map(exp => exp.companyName.split(' ')).flat() || [])
     ].flat().filter(Boolean).slice(0, 10),
     ogTitle: `${user.fullName} | ${user.title || 'Professional Portfolio'}`,
-    ogDescription: user.bio || `Explore ${user.fullName}'s professional portfolio showcasing expertise in ${user.skills?.slice(0, 2).join(' and ') || 'technology'}.`,
+    ogDescription: user.bio || user.intro || `Explore ${user.fullName}'s professional portfolio showcasing expertise in ${user.skills?.slice(0, 2).join(' and ') || 'technology'}.`,
     ogImage: user.profileImgUrl || '',
     twitterTitle: `${user.fullName} - ${user.title || 'Portfolio'}`,
     twitterDescription: user.bio?.substring(0, 180) || `Check out ${user.fullName}'s professional work and projects.`,
@@ -111,7 +112,10 @@ const generateSeoSuggestions = (user) => {
       sameAs: Object.values(user.socialLinks || {}).filter(Boolean),
       knowsAbout: user.skills || [],
       alumniOf: user.education?.map(edu => edu.institution) || [],
-      award: user.certifications?.map(cert => cert.title) || []
+      award: user.certifications?.map(cert => cert.title) || [],
+      address: user.location || '',
+      telephone: user.phoneNumber || '',
+      description: user.intro || user.bio || ''
     }
   }
 
