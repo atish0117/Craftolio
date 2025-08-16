@@ -45,7 +45,7 @@ import {
   Code2,
   Terminal,
 } from "lucide-react";
-import BioRender from "../../ui/BioRender";
+import TagLineRender from "../../ui/TagLineRender";
 
 const MinimalistTemplate = ({
   user,
@@ -358,14 +358,14 @@ const MinimalistTemplate = ({
                   </motion.div>
                 )}
 
-                {user.bio && (
+                {user.tagLine && (
                   <motion.p
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.6 }}
                     className="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed mb-12 font-light"
                   >
-                    <BioRender bio={user.bio} />
+                    <TagLineRender tagLine={user.tagLine} />
                   </motion.p>
                 )}
 

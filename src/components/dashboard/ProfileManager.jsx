@@ -18,14 +18,27 @@ const ProfileManager = () => {
   const [profileData, setProfileData] = useState({
     fullName: user?.fullName || '',
     title: user?.title || '',
-    bio: user?.bio || '',
+    tagLine: user?.tagLine || '',
     skills: user?.skills?.join(', ') || '',
     workExperience: user?.workExperience || 'Fresher',
+    phoneNumber: user?.phoneNumber || '',
+    location: user?.location || '', 
+    intro: user?.intro || '',
+    availability: user?.availability || 'available',
+    hourlyRate: user?.hourlyRate || '',
+    preferredWorkType: user?.preferredWorkType || 'remote',
+    languages: user?.languages?.join(', ') || '',
+    timezone: user?.timezone || '',
     socialLinks: {
       github: user?.socialLinks?.github || '',
       linkedin: user?.socialLinks?.linkedin || '',
       twitter: user?.socialLinks?.twitter || '',
+      instagram: user?.socialLinks?.instagram || '',
+      dribbble: user?.socialLinks?.dribbble || '',
+      behance: user?.socialLinks?.behance || '',
+      website: user?.socialLinks?.website || '',
     },
+    aboutSections: user?.aboutSections || [{ id: Date.now(), title: '', description: '' }],
   })
 
   const handleInputChange = (e) => {
@@ -48,6 +61,31 @@ const ProfileManager = () => {
     }
   }
 
+        // Handler for the about sections array
+  const handleAboutSectionChange = (index, field, value) => {
+    const updatedSections = [...profileData.aboutSections]
+    updatedSections[index][field] = value
+    setProfileData(prev => ({ ...prev, aboutSections: updatedSections }))
+  }
+
+  // Function to add a new empty section
+  const addAboutSection = () => {
+    setProfileData(prev => ({
+      ...prev,
+      aboutSections: [...prev.aboutSections, { id: Date.now(), title: '', description: '' }]
+    }))
+  }
+
+      // Function to remove a section by its index
+  const removeAboutSection = (index) => {
+    if (profileData.aboutSections.length <= 1) {
+      toast.error("You must have at least one section.")
+      return
+    }
+    const updatedSections = profileData.aboutSections.filter((_, i) => i !== index)
+    setProfileData(prev => ({ ...prev, aboutSections: updatedSections }))
+  }
+
     const getCleanTextLength = (html) => {
     const clean = DOMPurify.sanitize(html, { ALLOWED_TAGS: [] })
     return clean.trim().length
@@ -59,6 +97,8 @@ const ProfileManager = () => {
       const updateData = {
         ...profileData,
         skills: profileData.skills.split(',').map(skill => skill.trim()).filter(Boolean),
+        languages: profileData.languages.split(',').map(lang => lang.trim()).filter(Boolean),
+        aboutSections: profileData.aboutSections.filter(section => section.title.trim() !== '' || getCleanTextLength(section.description) > 0),
       }
 
       await dispatch(updateProfile(updateData)).unwrap()
@@ -85,7 +125,9 @@ const ProfileManager = () => {
 
   const sections = [
     { id: 'basic', label: 'Basic Info', icon: '👤' },
+    { id: 'about', label: 'About Me', icon: '📝' },
     { id: 'social', label: 'Social Links', icon: '🔗' },
+     { id: 'contact', label: 'Contact', icon: '📞' },
     { id: 'files', label: 'Files', icon: '📁' },
   ]
 
@@ -168,12 +210,12 @@ const ProfileManager = () => {
 
             <div className="mb-4">
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-          Bio
+          tagLine
         </label>
         <SunEditor
-          defaultValue={profileData.bio}
+          defaultValue={profileData.tagLine}
           onChange={(content) =>
-            setProfileData(prev => ({ ...prev, bio: content }))
+            setProfileData(prev => ({ ...prev, tagLine: content }))
           }
           setOptions={{
             height: 200,
@@ -186,10 +228,10 @@ const ProfileManager = () => {
               ['fullScreen', 'codeView'],
             ],
           }}
-          placeholder="Tell us about yourself..."
+          placeholder="e.g., Passionate developer who loves creating amazing user experiences"
         />
         <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-          {getCleanTextLength(profileData.bio)}/500 characters
+          {getCleanTextLength(profileData.tagLine)}/500 characters
         </p>
       </div>
 
@@ -241,23 +283,78 @@ const ProfileManager = () => {
           >
             <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Short Intro
+                Introduction
               </label>
               <input
                 type="text"
                 name="intro"
                 value={profileData.intro}
                 onChange={handleInputChange}
-                placeholder="e.g., Passionate developer who loves creating amazing user experiences"
-                className="input-field"
-                maxLength={150}
+                placeholder="Tell us about yourself..."
+                className="input-field  "
+                maxLength={500}
               />
-               <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                {profileData.intro.length}/150 characters
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                {profileData.intro.length}/500 characters
               </p>
             </div>
+
+              {profileData.aboutSections.map((section, index) => (
+              <div key={section.id} className="card p-6 relative">
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Section Title *
+                    </label>
+                    <input
+                      type="text"
+                      name="title"
+                      value={section.title}
+                      onChange={(e) => handleAboutSectionChange(index, 'title', e.target.value)}
+                      className="input-field"
+                      placeholder="e.g., My Journey, What I Love"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Content
+                    </label>
+                    <SunEditor
+                      defaultValue={section.description}
+                      onChange={(description) => handleAboutSectionChange(index, 'description', description)}
+                      setOptions={{
+                        height: 200,
+                        buttonList: [['undo', 'redo'], ['bold', 'italic', 'underline'], ['list'], ['link']],
+                      }}
+                      placeholder="Tell a story about this section..."
+                    />
+                  </div>
+                </div>
+                {profileData.aboutSections.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => removeAboutSection(index)}
+                    className="absolute top-4 right-4 text-gray-400 hover:text-red-500"
+                    title="Remove Section"
+                  >
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" /></svg>
+                  </button>
+                )}
+              </div>
+            ))}
+            <div className="flex justify-center">
+              <button
+                type="button"
+                onClick={addAboutSection}
+                className="btn-secondary"
+              >
+                + Add Another Section
+              </button>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-               <div>
+              <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Availability
                 </label>
@@ -270,12 +367,13 @@ const ProfileManager = () => {
                   <option value="available">Available for work</option>
                   <option value="busy">Busy</option>
                   <option value="not-available">Not available</option>
+                  <option value="currently-working">currently Working</option>
                 </select>
               </div>
             </div>
 
-                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                   <div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Hourly Rate (Optional)
                 </label>
@@ -304,7 +402,7 @@ const ProfileManager = () => {
                   <option value="freelance">Freelance</option>
                 </select>
               </div>
-                 </div>
+                </div>
 
                   <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">

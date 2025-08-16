@@ -33,7 +33,7 @@ import {
   Italic
 } from 'lucide-react';
 
-import BioRender from '../../ui/BioRender';
+import TagLineRender from '../../ui/TagLineRender';
 
 
 // Memoized skill card component
@@ -269,14 +269,14 @@ const ProfessionalTemplate = ({ user, projects, sectionOrder, visibleSections })
                     </motion.p>
                   )}
                   
-                  {user.bio && (
+                  {user.tagLine && (
                     <motion.p
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: 0.8 }}
                       className="text-lg text-white/80 mb-8 leading-relaxed max-w-lg"
                     >
-                       <BioRender bio={user.bio}/> 
+                      <TagLineRender tagLine={user.tagLine}/> 
                     </motion.p>
                   )}
 

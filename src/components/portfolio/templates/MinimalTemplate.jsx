@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import BioRender from '../../ui/BioRender' 
+import TagLineRender from '../../ui/TagLineRender' 
 
 const MinimalTemplate = ({ user, projects, sectionOrder, visibleSections }) => {
   const renderSection = (sectionId) => {
@@ -51,14 +51,14 @@ const MinimalTemplate = ({ user, projects, sectionOrder, visibleSections }) => {
                   {user.title}
                 </motion.p>
               )}
-              {user.bio && (
+              {user.tagLine && (
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.4 }}
                   className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed font-light"
                 >
-                   <BioRender bio={user.bio}/> 
+                  <TagLineRender tagLine={user.tagLine}/> 
                 </motion.p>
               )}
             </div>

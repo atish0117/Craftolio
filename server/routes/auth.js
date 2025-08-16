@@ -61,7 +61,7 @@ router.post('/register', [
         phoneNumber: user.phoneNumber,
         location: user.location,
         intro: user.intro,
-        bio: user.bio,
+        tagLine: user.tagLine,
         socialLinks: user.socialLinks,
         skills: user.skills,
         aboutSections: user.aboutSections,
@@ -132,7 +132,7 @@ router.post('/login', [
         phoneNumber: user.phoneNumber,
         location: user.location,
         intro: user.intro,
-        bio: user.bio,
+        tagLine: user.tagLine,
         socialLinks: user.socialLinks,
         skills: user.skills,
         aboutSections: user.aboutSections,
@@ -172,7 +172,7 @@ router.get('/profile', auth, async (req, res) => {
          phoneNumber: req.user.phoneNumber,
         location: req.user.location,
         intro: req.user.intro,
-        bio: req.user.bio,
+        tagLine: req.user.tagLine,
         socialLinks: req.user.socialLinks,
         skills: req.user.skills,
         aboutSections: req.user.aboutSections,
@@ -206,7 +206,7 @@ router.put('/profile', auth, async (req, res) => {
       phoneNumber,
       location,
       intro,
-      bio,
+      tagLine,
       skills,
       aboutSections,
       availability,
@@ -241,7 +241,7 @@ router.put('/profile', auth, async (req, res) => {
     if (phoneNumber !== undefined) updateData.phoneNumber = phoneNumber
     if (location !== undefined) updateData.location = location
     if (intro !== undefined) updateData.intro = intro
-    if (bio !== undefined) updateData.bio = bio
+    if (tagLine !== undefined) updateData.tagLine = tagLine
     if (skills) updateData.skills = skills
     if (workExperience) updateData.workExperience = workExperience
     if (socialLinks) updateData.socialLinks = socialLinks
@@ -288,7 +288,7 @@ router.put('/profile', auth, async (req, res) => {
         phoneNumber: user.phoneNumber,
         location: user.location,
         intro: user.intro,
-        bio: user.bio,
+        tagLine: user.tagLine,
         socialLinks: user.socialLinks,
         skills: user.skills,
         aboutSections: user.aboutSections,

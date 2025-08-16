@@ -179,7 +179,7 @@
 //             <h4 className="font-medium mb-2">💡 Improvement Tips:</h4>
 //             <ul className="space-y-1">
 //               <li>• Add more projects to increase engagement</li>
-//               <li>• Update your bio to improve conversion</li>
+//               <li>• Update your tagLine to improve conversion</li>
 //               <li>• Consider adding testimonials section</li>
 //             </ul>
 //           </div>

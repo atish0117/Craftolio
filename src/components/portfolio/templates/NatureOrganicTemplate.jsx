@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Leaf, TreePine, Flower, Sun, Moon, Cloud, Mountain, Waves, Download, ExternalLink, Github, Linkedin, Mail, Phone, MapPin, Calendar, Award, Star, Code, Briefcase, GraduationCap, User, Eye, Heart, Sprout, Router as Butterfly, Bird } from 'lucide-react';
-import BioRender from '../../ui/BioRender';
+import TagLineRender from '../../ui/TagLineRender';
 
 
 const NatureOrganicTemplate = ({ user, projects, sectionOrder, visibleSections }) => {
@@ -228,7 +228,7 @@ const NatureOrganicTemplate = ({ user, projects, sectionOrder, visibleSections }
                   </motion.div>
                 )}
 
-                {user.bio && (
+                {user.tagLine && (
                   <motion.p
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -236,7 +236,7 @@ const NatureOrganicTemplate = ({ user, projects, sectionOrder, visibleSections }
                     className="text-lg text-green-700 max-w-2xl mx-auto leading-relaxed mb-12 bg-white/30 backdrop-blur-sm p-6 rounded-2xl border border-white/40"
                     style={{ fontFamily: 'serif' }}
                   >
-                     <BioRender bio={user.bio}/> 
+                     <TagLineRender tagLine={user.tagLine}/> 
                   </motion.p>
                 )}
 

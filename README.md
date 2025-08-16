@@ -149,7 +149,7 @@ portfolio-builder/
 
 1. **Sign Up**: Create an account with email and password
 2. **Dashboard Access**: Navigate to the dashboard after login
-3. **Profile Setup**: Add your basic information, bio, and skills
+3. **Profile Setup**: Add your basic information, tagLine, and skills
 4. **Add Content**: 
    - Upload profile image and resume
    - Add projects with descriptions and tech stack

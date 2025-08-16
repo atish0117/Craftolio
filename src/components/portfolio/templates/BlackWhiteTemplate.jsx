@@ -43,7 +43,7 @@ import {
   Circle
 } from 'lucide-react';
 
-import BioRender from '../../ui/BioRender';
+import TagLineRender from "../../ui/TagLineRender"
 
 
 // Memoized floating geometric shapes
@@ -318,6 +318,8 @@ const BlackWhiteTemplate = ({ user, projects, sectionOrder, visibleSections }) =
   const { scrollYProgress } = useScroll();
   const springScrollProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
+console.log(user)
+
   // Mouse tracking for interactive cursor
   useEffect(() => {
 
@@ -407,16 +409,16 @@ const BlackWhiteTemplate = ({ user, projects, sectionOrder, visibleSections }) =
                       </motion.div>
                     )}
                     
-                    {user.bio && (
+                    {user.tagLine && (
                       <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.8 }}
                         className="text-lg text-gray-400 mb-12 leading-relaxed max-w-lg"
                       >
-                            <BioRender bio={user.bio} />
+                            <TagLineRender tagLine={user.tagLine} />
                         
-                        {/* {user.bio} */}
+                        {/* {user.tagLine} */}
                       </motion.p>
                     )}
                     

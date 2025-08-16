@@ -21,7 +21,8 @@ import { updateSectionOrder, toggleSectionVisibility } from '../../store/slices/
 import toast from 'react-hot-toast'
 
 const defaultSections = [
-  { id: 'hero', label: 'Hero Section', icon: '🏠', description: 'Introduction and profile image' },
+  { id: 'hero', label: 'Hero Section', icon: '🏠', description: 'TagLines and profile image' },
+  { id: 'about', label: 'About Section', icon: '📝', description: 'Introduction and Details' },
   { id: 'skills', label: 'Skills', icon: '⚡', description: 'Technical skills and expertise' },
   { id: 'projects', label: 'Projects', icon: '💼', description: 'Portfolio projects showcase' },
   { id: 'education', label: 'Education', icon: '🎓', description: 'Educational background' },

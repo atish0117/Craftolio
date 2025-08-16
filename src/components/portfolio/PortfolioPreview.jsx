@@ -48,15 +48,14 @@ const PortfolioPreview = () => {
                   {user.title}
                 </p>
               )}
-              {user.bio && (
+              {user.tagLine && (
                 <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-                  {user.bio}
+                  {user.tagLine}
                 </p>
               )}
             </div>
           </section>
         )
-
       case 'skills':
         return user.skills && user.skills.length > 0 ? (
           <section className="py-16 bg-white dark:bg-dark-800">

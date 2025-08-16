@@ -23,7 +23,7 @@ import {
   Zap
 } from 'lucide-react';
 
-import BioRender from '../../ui/BioRender';
+import TagLineRender from '../../ui/TagLineRender';
 
 
 
@@ -162,14 +162,14 @@ const GlassmorphismTemplate = ({ user, projects, sectionOrder, visibleSections }
                   </motion.div>
                 )}
 
-                {user.bio && (
+                {user.tagLine && (
                   <motion.p
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.7 }}
                     className="text-lg text-white/90 max-w-2xl mx-auto leading-relaxed mb-12 backdrop-blur-sm bg-white/10 p-6 rounded-2xl border border-white/20"
                   >
-                   <BioRender bio={user.bio}/> 
+                  <TagLineRender tagLine={user.tagLine}/> 
                   </motion.p>
                 )}
 

@@ -27,7 +27,7 @@ import {
   Zap,
   Gamepad2
 } from 'lucide-react';
-import BioRender from '../../ui/BioRender'; 
+import TagLineRender from '../../ui/TagLineRender'; 
 
 
 const RetroVintageTemplate= ({ user, projects, sectionOrder, visibleSections }) => {
@@ -151,7 +151,7 @@ const RetroVintageTemplate= ({ user, projects, sectionOrder, visibleSections }) 
                   </motion.div>
                 )}
 
-                {user.bio && (
+                {user.tagLine && (
                   <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -159,7 +159,7 @@ const RetroVintageTemplate= ({ user, projects, sectionOrder, visibleSections }) 
                     className="bg-amber-50 border-4 border-amber-200 rounded-lg p-8 mb-12 transform -rotate-1 shadow-lg"
                   >
                     <p className="text-lg text-amber-900 leading-relaxed" style={{ fontFamily: 'serif' }}>
-                      <BioRender bio={user.bio}/> 
+                      <TagLineRender tagLine={user.tagLine}/> 
                     </p>
                   </motion.div>
                 )}

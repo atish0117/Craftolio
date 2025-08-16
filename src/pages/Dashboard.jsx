@@ -30,7 +30,7 @@ const Dashboard = () => {
   const [profileData, setProfileData] = useState({
     fullName: user?.fullName || '',
     title: user?.title || '',
-    bio: user?.bio || '',
+    tagLine: user?.tagLine || '',
     skills: user?.skills?.join(', ') || '',
     workExperience: user?.workExperience || 'Fresher',
     socialLinks: {

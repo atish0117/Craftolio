@@ -25,7 +25,7 @@ router.get('/:username', async (req, res) => {
         profileImgUrl: user.profileImgUrl,
         resumeUrl: user.resumeUrl,
         title: user.title,
-        bio: user.bio,
+        tagLine: user.tagLine,
         socialLinks: user.socialLinks,
         skills: user.skills,
         workExperience: user.workExperience,
@@ -106,7 +106,7 @@ router.put('/profile', auth, async (req, res) => {
     const {
       fullName,
       title,
-      bio,
+      tagLine,
       skills,
       workExperience,
       socialLinks,
@@ -123,7 +123,7 @@ router.put('/profile', auth, async (req, res) => {
     
     if (fullName) updateData.fullName = fullName
     if (title !== undefined) updateData.title = title
-    if (bio !== undefined) updateData.bio = bio
+    if (tagLine !== undefined) updateData.tagLine = tagLine
     if (skills) updateData.skills = skills
     if (workExperience) updateData.workExperience = workExperience
     if (socialLinks) updateData.socialLinks = socialLinks
@@ -151,7 +151,7 @@ router.put('/profile', auth, async (req, res) => {
         profileImgUrl: user.profileImgUrl,
         resumeUrl: user.resumeUrl,
         title: user.title,
-        bio: user.bio,
+        tagLine: user.tagLine,
         socialLinks: user.socialLinks,
         skills: user.skills,
         workExperience: user.workExperience,

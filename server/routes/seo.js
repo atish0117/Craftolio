@@ -63,7 +63,7 @@ const calculateSeoScore = (user, seoData) => {
   let profileScore = 0
   if (user.profileImgUrl) profileScore += 3
   if (user.resumeUrl) profileScore += 3
-  if (user.bio && user.bio.length > 50) profileScore += 3
+  if (user.tagLine && user.tagLine.length > 50) profileScore += 3
   if (user.skills && user.skills.length >= 5) profileScore += 3
   if (user.socialLinks && Object.values(user.socialLinks).filter(Boolean).length >= 2) profileScore += 3
   score += profileScore
@@ -84,8 +84,8 @@ const calculateSeoScore = (user, seoData) => {
 const generateSeoSuggestions = (user) => {
   const suggestions = {
     metaTitle: `${user.fullName} - ${user.title || 'Professional Portfolio'} | ${user.skills?.[0] || 'Expert'}`,
-    metaDescription: user.bio 
-      ? `${user.bio.substring(0, 140)}...` 
+    metaDescription: user.tagLine 
+      ? `${user.tagLine.substring(0, 140)}...` 
       : `Professional portfolio of ${user.fullName}, ${user.title || 'experienced professional'} specializing in ${user.skills?.slice(0, 3).join(', ') || 'various technologies'}. View projects, experience, and contact information.`,
     keywords: [
       ...(user.skills || []),
@@ -98,10 +98,10 @@ const generateSeoSuggestions = (user) => {
       ...(user.experienceDetails?.map(exp => exp.companyName.split(' ')).flat() || [])
     ].flat().filter(Boolean).slice(0, 10),
     ogTitle: `${user.fullName} | ${user.title || 'Professional Portfolio'}`,
-    ogDescription: user.bio || user.intro || `Explore ${user.fullName}'s professional portfolio showcasing expertise in ${user.skills?.slice(0, 2).join(' and ') || 'technology'}.`,
+    ogDescription: user.tagLine || user.intro || `Explore ${user.fullName}'s professional portfolio showcasing expertise in ${user.skills?.slice(0, 2).join(' and ') || 'technology'}.`,
     ogImage: user.profileImgUrl || '',
     twitterTitle: `${user.fullName} - ${user.title || 'Portfolio'}`,
-    twitterDescription: user.bio?.substring(0, 180) || `Check out ${user.fullName}'s professional work and projects.`,
+    twitterDescription: user.tagLine?.substring(0, 180) || `Check out ${user.fullName}'s professional work and projects.`,
     twitterImage: user.profileImgUrl || '',
     canonicalUrl: `${process.env.CLIENT_URL || 'http://localhost:5173'}/${user.username}`,
     structuredData: {
@@ -115,7 +115,7 @@ const generateSeoSuggestions = (user) => {
       award: user.certifications?.map(cert => cert.title) || [],
       address: user.location || '',
       telephone: user.phoneNumber || '',
-      description: user.intro || user.bio || ''
+      description: user.intro || user.tagLine || ''
     }
   }
 
@@ -295,12 +295,12 @@ router.get('/preview/:username', async (req, res) => {
     const preview = {
       google: {
         title: seoData.metaTitle || `${user.fullName} - Portfolio`,
-        description: seoData.metaDescription || user.bio || `Professional portfolio of ${user.fullName}`,
+        description: seoData.metaDescription || user.tagLine || `Professional portfolio of ${user.fullName}`,
         url: portfolioUrl
       },
       facebook: {
         title: seoData.ogTitle || seoData.metaTitle || `${user.fullName} - Portfolio`,
-        description: seoData.ogDescription || seoData.metaDescription || user.bio,
+        description: seoData.ogDescription || seoData.metaDescription || user.tagLine,
         image: seoData.ogImage || user.profileImgUrl,
         url: portfolioUrl
       },

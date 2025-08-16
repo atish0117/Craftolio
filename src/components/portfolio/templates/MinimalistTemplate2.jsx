@@ -33,7 +33,7 @@ import {
   Lightbulb,
   Sparkles
 } from 'lucide-react';
-import BioRender from '../../ui/BioRender'; // Assuming BioRender is a component that renders the bio content
+import TagLineRender from '../../ui/TagLineRender'; // Assuming tagLineRender is a component that renders the tagLine content
 
 const MinimalistTemplate2 = ({ user, projects, sectionOrder, visibleSections }) => {
   const [activeSection, setActiveSection] = useState('hero');
@@ -182,14 +182,14 @@ const MinimalistTemplate2 = ({ user, projects, sectionOrder, visibleSections }) 
                   </motion.div>
                 )}
 
-                {user.bio && (
+                {user.tagLine && (
                   <motion.p
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.6 }}
                     className="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed mb-12 font-light"
                   >
-                    <BioRender bio={user.bio}/> 
+                    <TagLineRender tagLine={user.tagLine}/> 
                   </motion.p>
                 )}
 

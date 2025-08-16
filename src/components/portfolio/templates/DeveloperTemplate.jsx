@@ -26,7 +26,7 @@ import {
   Briefcase,
   BookOpen
 } from 'lucide-react';
-import BioRender from '../../ui/BioRender';
+import TagLineRender from '../../ui/TagLineRender';
 
 
 const TypeWriter = ({ text, speed=100 }) => {
@@ -216,7 +216,7 @@ useEffect(() => {
                     </motion.div>
                   </CodeBlock>
                   
-                  {user.bio && (
+                  {user.tagLine && (
                     <motion.div 
                       className="mb-8"
                       initial={{ opacity: 0, y: 20 }}
@@ -224,7 +224,7 @@ useEffect(() => {
                       transition={{ delay: 1.5 }}
                     >
                       <span className="text-green-400 font-mono text-sm">/* About me */</span>
-                      <p className="text-gray-300 mt-2 leading-relaxed"> <BioRender bio={user.bio}/> </p>
+                      <p className="text-gray-300 mt-2 leading-relaxed"> <TagLineRender tagLine={user.tagLine}/> </p>
                     </motion.div>
                   )}
 

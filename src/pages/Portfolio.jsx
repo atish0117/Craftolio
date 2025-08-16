@@ -97,9 +97,9 @@
 //                       {user.title}
 //                     </p>
 //                   )}
-//                   {user.bio && (
+//                   {user.tagLine && (
 //                     <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-//                       {user.bio}
+//                       {user.tagLine}
 //                     </p>
 //                   )}
 

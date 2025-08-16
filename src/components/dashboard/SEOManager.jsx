@@ -647,7 +647,7 @@ const SEOManager = () => {
                   {window.location.origin}/{user?.username}
                 </p>
                 <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
-                  {seoData.metaDescription || user?.bio || `Professional portfolio of ${user?.fullName}`}
+                  {seoData.metaDescription || user?.tagLine || `Professional portfolio of ${user?.fullName}`}
                 </p>
               </div>
             </div>
@@ -670,7 +670,7 @@ const SEOManager = () => {
                       {seoData.ogTitle || seoData.metaTitle || `${user?.fullName} - Portfolio`}
                     </h5>
                     <p className="text-xs text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
-                      {seoData.ogDescription || seoData.metaDescription || user?.bio || 'Portfolio description...'}
+                      {seoData.ogDescription || seoData.metaDescription || user?.tagLine || 'Portfolio description...'}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
                       {window.location.origin}/{user?.username}

@@ -56,14 +56,14 @@
 //                   </motion.p>
 //                 )}
 
-//                 {user.bio && (
+//                 {user.tagLine && (
 //                   <motion.p
 //                     initial={{ opacity: 0, y: 30 }}
 //                     animate={{ opacity: 1, y: 0 }}
 //                     transition={{ duration: 0.8, delay: 0.7 }}
 //                     className="text-lg text-white/80 max-w-2xl mx-auto leading-relaxed"
 //                   >
-//                     {user.bio}
+//                     {user.tagLine}
 //                   </motion.p>
 //                 )}
 //               </div>
@@ -313,7 +313,7 @@ import {
   Users,
   Globe
 } from 'lucide-react'
-import BioRender from '../../ui/BioRender'
+import TagLineRender from '../../ui/TagLineRender'
 
 
 const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => {
@@ -484,14 +484,14 @@ const CreativeTemplate = ({ user, projects, sectionOrder, visibleSections }) => 
                   </motion.p>
                 )}
                 
-                {user.bio && (
+                {user.tagLine && (
                   <motion.p
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.7 }}
                     className="text-lg text-white/80 max-w-2xl mx-auto leading-relaxed mb-8"
                   >
-                    <BioRender bio={user.bio}/> 
+                    <TagLineRender tagLine={user.tagLine}/> 
                   </motion.p>
                 )}
 

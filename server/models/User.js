@@ -10,10 +10,10 @@ const userSchema = new mongoose.Schema(
     profileImgUrl: { type: String, default: "" },
     resumeUrl: { type: String, default: "" },
     title: String,
-     phoneNumber: String,
+    phoneNumber: String,
     location: String,
     intro: String, // Short intro about the user
-    bio: String,
+    tagLine: String,
     socialLinks: {
       github: String,
       linkedin: String,
@@ -30,7 +30,6 @@ const userSchema = new mongoose.Schema(
       id: String,
       title: String,
       description: String,
-      order: { type: Number, default: 0 }
     }],
       languages: [String],
       timezone: String,
@@ -43,7 +42,7 @@ const userSchema = new mongoose.Schema(
     },
      availability: {
       type: String,
-      enum: ["available", "busy", "not-available"],
+      enum: ["available", "busy", "not-available","currently-working",],
       default: "available"
     },
     workExperience: {
