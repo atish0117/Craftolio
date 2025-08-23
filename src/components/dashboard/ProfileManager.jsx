@@ -24,6 +24,7 @@ const ProfileManager = () => {
     phoneNumber: user?.phoneNumber || '',
     location: user?.location || '', 
     intro: user?.intro || '',
+    email: user?.email || '',
     availability: user?.availability || 'available',
     hourlyRate: user?.hourlyRate || '',
     preferredWorkType: user?.preferredWorkType || 'remote',
@@ -457,7 +458,7 @@ const ProfileManager = () => {
                   name="phoneNumber"
                   value={profileData.phoneNumber}
                   onChange={handleInputChange}
-                  placeholder="+1 (555) 123-4567"
+                  placeholder="+91 9999999999"
                   className="input-field"
                 />
               </div>
@@ -474,8 +475,25 @@ const ProfileManager = () => {
                   name="location"
                   value={profileData.location}
                   onChange={handleInputChange}
-                  placeholder="New York, NY"
+                  placeholder="Bangalore"
                   className="input-field"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <span className="flex items-center space-x-2">
+                    <span> @ </span>
+                    <span>Email</span>
+                  </span>
+                </label>
+                <input
+                  type="text"
+                  name="email"
+                  value={profileData.email}
+                  onChange={handleInputChange}
+                  placeholder="you@example.com"
+                  className="input-field"
+                  readOnly
                 />
               </div>
             </div>
