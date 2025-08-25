@@ -12,6 +12,9 @@ import Register from './pages/auth/Register'
 import Dashboard from './pages/Dashboard'
 import Portfolio from './pages/Portfolio'
 import Home from './pages/Home'
+import ForgotPassword from './pages/auth/ForgotPassword'  
+import ResetPassword from './pages/auth/ResetPassword' 
+
 import { useLocation } from 'react-router-dom'
 
 function App() {
@@ -27,7 +30,6 @@ function App() {
     return <LoadingSpinner />
   }
   // 👇 Define routes where navbar should not appear
-  const hideNavbarRoutes = ['/:username'] // dynamic route
  const shouldHideNavbar = /^\/(?!dashboard|login|register$)[^/]+$/.test(location.pathname)
 
 
@@ -59,6 +61,10 @@ function App() {
                   isAuthenticated ? <Dashboard /> : <Navigate to="/login" replace />
                 } 
               />
+
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/reset-password/:token" element={<ResetPassword />} />
+
               <Route path="/:username" element={<Portfolio />} />
             </Routes>
           </AnimatePresence>

@@ -18,7 +18,6 @@ import ThemeCustomizer from '../components/dashboard/ThemeCustomizer'
 import SEOManager from '../components/dashboard/SEOManager'
 import IntegrationsManager from '../components/dashboard/IntegrationsManager'
 import QuickActions from '../components/ui/QuickActions'
-import AboutSectionManager from '../components/dashboard/AboutSectionManager'
 import toast from 'react-hot-toast'
 
 const Dashboard = () => {
@@ -90,7 +89,6 @@ const Dashboard = () => {
 
   const tabs = [
     { id: 'profile', label: 'Profile', icon: '👤', description: 'Manage your basic information' },
-     { id: 'about', label: 'About', icon: '📝', description: 'Create custom about sections' },
     { id: 'projects', label: 'Projects', icon: '💼', description: 'Showcase your work' },
     { id: 'experience', label: 'Experience', icon: '💻', description: 'Add work experience' },
     { id: 'education', label: 'Education', icon: '🎓', description: 'Educational background' },
@@ -192,7 +190,6 @@ const Dashboard = () => {
           >
             <div className="card p-8">
               {activeTab === 'profile' && <ProfileManager />}
-              {activeTab === 'about' && <AboutSectionManager />}
               {activeTab === 'projects' && <ProjectManager />}
               {activeTab === 'experience' && <ExperienceManager />}
               {activeTab === 'education' && <EducationManager />}
