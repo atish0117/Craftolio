@@ -107,7 +107,7 @@ import { logout } from '../../store/slices/authSlice'
 import { toggleTheme } from '../../store/slices/themeSlice'
 import ThemeToggle from '../ui/ThemeToggle'
 import NotificationCenter from '../ui/NotificationCenter'
-import SearchBar from '../ui/SearchBar'
+// import SearchBar from '../ui/SearchBar'
 import CommandPalette from '../ui/CommandPalette'
 import ExportOptions from '../ui/ExportOptions'
 
@@ -192,13 +192,13 @@ const Navbar = () => {
               <div className="flex items-center space-x-4">
                 <Link
                   to="/login"
-                  className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                  className="text-gray-700 btn-secondary dark:text-gray-300  hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
-                  className="btn-primary"
+                  className="btn-primary gradient-bg"
                 >
                   Sign Up
                 </Link>
