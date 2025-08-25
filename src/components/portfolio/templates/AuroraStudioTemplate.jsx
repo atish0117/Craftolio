@@ -69,7 +69,7 @@ const AuroraStudioTemplate = () => {
           >
             <div className="lg:w-1/2 mb-12 lg:mb-0">
               <h1 className="text-4xl lg:text-6xl font-bold mb-4">
-                MY NAME IS <span className="text-white">LILON MACWIAN</span>
+                MY NAME IS <span className="text-white">Rohit MACWIAN</span>
               </h1>
               <h2 className="text-2xl lg:text-4xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
                 Web Designer based in USA
@@ -83,11 +83,11 @@ const AuroraStudioTemplate = () => {
               <div className="mt-12 space-y-4">
                 <div className="flex items-center text-gray-400">
                   <i className="fas fa-phone-alt mr-4"></i>
-                  <span>+123456 4677788</span>
+                  <span>+91 23456 77788</span>
                 </div>
                 <div className="flex items-center text-gray-400">
                   <i className="fas fa-envelope mr-4"></i>
-                  <span>shilowne@gmail.com</span>
+                  <span>Rohit@gmail.com</span>
                 </div>
               </div>
             </div>
@@ -100,7 +100,7 @@ const AuroraStudioTemplate = () => {
                 </div>
               </div>
               <div className="absolute -bottom-4 -right-4 bg-gray-800 rounded-xl px-4 py-2 shadow-lg">
-                <span className="text-sm">10+ Years Experience</span>
+                <span className="text-sm">5+ Years Experience</span>
               </div>
             </div>
           </motion.div>
@@ -128,8 +128,8 @@ const AuroraStudioTemplate = () => {
                 WELCOME TO MY PORTFOLIO
               </h2>
               <p className="text-gray-400 mb-8">
-                Hello there! My name is Lilon Macwan. I am a web designer & developer, and I'm very
-                passionate and dedicated to my work with 10+ years of experience
+                Hello there! My name is Rohit Macwan. I am a web designer & developer, and I'm very
+                passionate and dedicated to my work with 5+ years of experience
                 as a professional designer. I have acquired the skills necessary to make your project a success.
               </p>
               

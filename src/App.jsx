@@ -14,7 +14,7 @@ import Portfolio from './pages/Portfolio'
 import Home from './pages/Home'
 import ForgotPassword from './pages/auth/ForgotPassword'  
 import ResetPassword from './pages/auth/ResetPassword' 
-
+import AuroraStudioTemplate from "./components/portfolio/templates/AuroraStudioTemplate"
 import { useLocation } from 'react-router-dom'
 
 function App() {
@@ -43,6 +43,7 @@ function App() {
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<Home />} />
+              <Route path="/demo" element={<AuroraStudioTemplate />} />
               <Route 
                 path="/login" 
                 element={
