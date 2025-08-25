@@ -133,7 +133,7 @@ const Navbar = () => {
           <Link to="/" className="flex items-center space-x-2">
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="text-2xl font-bold gradient-bg bg-clip-text text-transparent"
+              className="text-2xl font-bold text-gradient"
             >
               Craftolio
             </motion.div>
@@ -192,13 +192,13 @@ const Navbar = () => {
               <div className="flex items-center space-x-4">
                 <Link
                   to="/login"
-                  className="text-gray-700 btn-secondary dark:text-gray-300  hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                  className=" btn-secondary"
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
-                  className="btn-primary gradient-bg"
+                  className="btn-primary gradient-bg4 hover:ultra-themeColor "
                 >
                   Sign Up
                 </Link>

@@ -294,11 +294,11 @@ const Login = () => {
         
         {/* Gradient Overlay */}
        
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 to-gray-900/80"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-primary-600/30 to-primary-400/30"></div>
   
         {/* Logo */}
         <div className="absolute top-8 left-8 z-10">
-          <h1 className="text-3xl font-bold text-white">PortfolioPro</h1>
+          <h1 className="text-3xl font-bold text-white">LOGO</h1>
         </div>
         
         {/* Back to Website Button */}
@@ -339,9 +339,9 @@ const Login = () => {
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center justify-center w-16 h-16 bg-indigo-900/20 rounded-xl mb-4 mx-auto"
+              className="inline-flex items-center justify-center w-16 h-16 bg-primary-500/20 rounded-xl mb-4 mx-auto"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary-500/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
             </motion.div>
@@ -406,7 +406,7 @@ const Login = () => {
               </div>
 
               <div className="text-sm">
-                <Link to="/forgot-password" className="font-medium text-indigo-400 hover:text-indigo-300">
+                <Link to="/forgot-password" className="font-medium text-gradient">
                   Forgot password?
                 </Link>
               </div>
@@ -415,7 +415,7 @@ const Login = () => {
             <motion.button
               type="submit"
               disabled={loading}
-              className="w-full px-4 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg flex items-center justify-center"
+              className="w-full px-4 py-3 gradient-bg4 hover:gradient-bg2 text-white font-medium rounded-lg  transition-all shadow-lg flex items-center justify-center"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -438,7 +438,7 @@ const Login = () => {
                 Don't have an account?{' '}
                 <Link
                   to="/register"
-                  className="font-medium text-indigo-400 hover:text-indigo-300"
+                  className="font-medium text-gradient"
                 >
                   Create one now
                 </Link>
