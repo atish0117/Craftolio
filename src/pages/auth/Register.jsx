@@ -78,9 +78,9 @@
 //       {/* Background image with overlay */}
 //       <div className="absolute inset-0 z-0">
 //         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/70 to-purple-900/70"></div>
-//         <img 
-//           src="https://plus.unsplash.com/premium_photo-1685148902854-9b9bb49fff08?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-//           alt="Background" 
+//         <img
+//           src="https://plus.unsplash.com/premium_photo-1685148902854-9b9bb49fff08?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+//           alt="Background"
 //           className="w-full h-full object-cover"
 //         />
 //       </div>
@@ -187,18 +187,18 @@
 //             <div className="mt-2">
 //               <div className="flex gap-1 h-1.5">
 //                 {[1, 2, 3, 4].map((i) => (
-//                   <div 
+//                   <div
 //                     key={i}
-//                     className={`flex-1 rounded-full ${i <= passwordStrength ? 
-//                       passwordStrength <= 2 ? 'bg-red-400' : 
-//                       passwordStrength <= 3 ? 'bg-yellow-400' : 'bg-green-400' 
+//                     className={`flex-1 rounded-full ${i <= passwordStrength ?
+//                       passwordStrength <= 2 ? 'bg-red-400' :
+//                       passwordStrength <= 3 ? 'bg-yellow-400' : 'bg-green-400'
 //                       : 'bg-white/20'}`}
 //                   />
 //                 ))}
 //               </div>
 //               <p className="text-xs mt-1 text-white/70">
-//                 {passwordStrength === 0 ? '' : 
-//                  passwordStrength <= 2 ? 'Weak password' : 
+//                 {passwordStrength === 0 ? '' :
+//                  passwordStrength <= 2 ? 'Weak password' :
 //                  passwordStrength <= 3 ? 'Moderate password' : 'Strong password'}
 //               </p>
 //             </div>
@@ -321,12 +321,12 @@
 // export default Register;
 
 // second register form design
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { motion } from 'framer-motion';
-import { register, clearError } from '../../store/slices/authSlice';
-import toast from 'react-hot-toast';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { motion } from "framer-motion";
+import { register, clearError } from "../../store/slices/authSlice";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -336,19 +336,19 @@ const Register = () => {
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
   const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const [passwordStrength, setPasswordStrength] = useState(0);
 
   // Sample images for the slider
   const sliderImages = [
-    'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80',
-    'https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80',
-    'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80'
+    "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80",
+    "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80",
+    "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80",
   ];
 
   // Auto-advance slider
@@ -367,7 +367,7 @@ const Register = () => {
     });
 
     // Calculate password strength when password changes
-    if (name === 'password') {
+    if (name === "password") {
       let strength = 0;
       if (value.length > 0) strength += 1;
       if (value.length >= 6) strength += 1;
@@ -380,33 +380,40 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-      // Handle registration logic
-      if (!formData.fullName || !formData.email || !formData.password || !formData.confirmPassword) {
-        toast.error('Please fill in all fields');
-        return;
-      }
 
-      if (formData.password !== formData.confirmPassword) {
-        toast.error('Passwords do not match');
-        return;
-      }
+    // Handle registration logic
+    if (
+      !formData.fullName ||
+      !formData.email ||
+      !formData.password ||
+      !formData.confirmPassword
+    ) {
+      toast.error("Please fill in all fields");
+      return;
+    }
 
-      if (formData.password.length < 6) {
-        toast.error('Password must be at least 6 characters');
-        return;
-      }
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
 
-      try {
-        await dispatch(register({
+    if (formData.password.length < 6) {
+      toast.error("Password must be at least 6 characters");
+      return;
+    }
+
+    try {
+      await dispatch(
+        register({
           fullName: formData.fullName,
           email: formData.email,
           password: formData.password,
-        })).unwrap();
-        toast.success('Registration successful!');
-      } catch (err) {
-        toast.error(err || 'Registration failed');
-      }
+        })
+      ).unwrap();
+      toast.success("Registration successful!");
+    } catch (err) {
+      toast.error(err || "Registration failed");
+    }
   };
 
   useEffect(() => {
@@ -414,48 +421,54 @@ const Register = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex min-h-screen bg-gray-900">
+    <div className="flex bg-gray-900">
       {/* Left Side - Image Slider (Hidden on mobile) */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden ">
         {/* Background Images */}
         {sliderImages.map((image, index) => (
           <div
             key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === activeSlide ? 'opacity-100' : 'opacity-0'}`}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              index === activeSlide ? "opacity-100" : "opacity-0"
+            }`}
             style={{
               backgroundImage: `url(${image})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center'
+              backgroundSize: "cover",
+              backgroundPosition: "center",
             }}
           />
         ))}
-        
+
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 to-gray-900/80"></div>
-        
+        <div className="absolute inset-0  bg-gradient-to-b from-primary-600/30 to-primary-400/30"></div>
+
         {/* Logo */}
         <div className="absolute top-8 left-8 z-10">
           <h1 className="text-3xl font-bold text-white">LOGO</h1>
         </div>
-        
+
         {/* Back to Website Button */}
         <div className="absolute top-8 right-8 z-10">
           <button className="text-white hover:text-purple-300 transition-colors flex items-center">
             Back to website <span className="ml-2">→</span>
           </button>
         </div>
-        
+
         {/* Caption */}
         <div className="absolute bottom-16 left-8 z-10">
-          <p className="text-xl text-white italic">"Capturing Moments, Creating Memories"</p>
+          <p className="text-xl text-white italic">
+            "Capturing Moments, Creating Memories"
+          </p>
         </div>
-        
+
         {/* Slider Indicators */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 flex space-x-3">
           {sliderImages.map((_, index) => (
             <button
               key={index}
-              className={`w-3 h-3 rounded-full ${index === activeSlide ? 'bg-white' : 'bg-gray-400'}`}
+              className={`w-3 h-3 rounded-full ${
+                index === activeSlide ? "bg-white" : "bg-gray-400"
+              }`}
               onClick={() => setActiveSlide(index)}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -464,15 +477,15 @@ const Register = () => {
       </div>
 
       {/* Right Side - Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center px-4 py-2 sm:px-6 lg:px-8">
-        <motion.div 
+      <div className="w-full lg:w-1/2 flex items-center justify-center">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="w-full max-w-md bg-gray-800 rounded-xl shadow-2xl px-8 py-4"
+          className="w-full max-w-full bg-gray-800 shadow-2xl px-32 py-16"
         >
           <div className="text-center mb-8">
-                  {/* <motion.div
+            {/* <motion.div
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.5 }}
@@ -482,7 +495,7 @@ const Register = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
               </svg>
             </motion.div> */}
-            
+
             <h2 className="text-3xl font-bold text-white">
               Create Your Account
             </h2>
@@ -492,46 +505,55 @@ const Register = () => {
           </div>
 
           <form className="space-y-6" onSubmit={handleSubmit}>
-            
-              <div>
-                <label htmlFor="fullName" className="block text-sm font-medium text-gray-300 mb-2">
-                  Full Name
-                </label>
-                <input
-                  id="fullName"
-                  name="fullName"
-                  type="text"
-                  autoComplete="name"
-                  required
-                  className="w-full bg-gray-700 border border-gray-600 rounded-lg py-3 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-                  placeholder="Enter your full name"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                />
-              </div>
-            
+            <div>
+              {/* <label
+                htmlFor="fullName"
+                className="block text-sm font-medium text-gray-300 mb-2"
+              >
+                Full Name
+              </label> */}
+              <input
+                id="fullName"
+                name="fullName"
+                type="text"
+                autoComplete="name"
+                required
+                className="w-full bg-gray-700 border border-gray-600 rounded-lg py-3 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/80 focus:border-transparent transition"
+                placeholder="Enter your full name"
+                value={formData.fullName}
+                onChange={handleChange}
+              />
+            </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+              {/* <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-300 mb-2"
+              >
                 Email address
-              </label>
+              </label> */}
               <input
                 id="email"
                 name="email"
                 type="email"
                 autoComplete="email"
                 required
-                className="w-full bg-gray-700 border border-gray-600 rounded-lg py-3 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-                placeholder="you@example.com"
+                className="w-full bg-gray-700 border border-gray-600 rounded-lg py-3 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/80 focus:border-transparent transition"
+                placeholder="Enter your email address"
                 value={formData.email}
                 onChange={handleChange}
               />
             </div>
 
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
+            <div className="flex gap-4">
+
+            <div className="w-1/2">
+              {/* <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-300 mb-2"
+              >
                 Password
-              </label>
+              </label> */}
               <div className="relative">
                 <input
                   id="password"
@@ -539,8 +561,8 @@ const Register = () => {
                   type={passwordVisible ? "text" : "password"}
                   autoComplete="new-password"
                   required
-                  className="w-full bg-gray-700 border border-gray-600 rounded-lg py-3 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition pr-12"
-                  placeholder="Create a password ••••••••"
+                  className="w-full bg-gray-700 border border-gray-600 rounded-lg py-3 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/80 focus:border-transparent transition pr-12"
+                  placeholder="password ••••••••"
                   value={formData.password}
                   onChange={handleChange}
                 />
@@ -548,101 +570,183 @@ const Register = () => {
                   type="button"
                   className="absolute inset-y-0 right-0 pr-3 flex items-center"
                   onClick={() => setPasswordVisible(!passwordVisible)}
-                  aria-label={passwordVisible ? "Hide password" : "Show password"}
+                  aria-label={
+                    passwordVisible ? "Hide password" : "Show password"
+                  }
                 >
                   {passwordVisible ? (
-                    <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    <svg
+                      className="h-5 w-5 text-gray-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                      />
                     </svg>
                   ) : (
-                    <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.88l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                    <svg
+                      className="h-5 w-5 text-gray-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.88l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
+                      />
                     </svg>
                   )}
                 </button>
               </div>
-              
-                <div className="mt-2">
-                  <div className="flex gap-1 h-1.5">
-                    {[1, 2, 3, 4].map((i) => (
-                      <div 
-                        key={i}
-                        className={`flex-1 rounded-full ${i <= passwordStrength ? 
-                          passwordStrength <= 2 ? 'bg-red-400' : 
-                          passwordStrength <= 3 ? 'bg-yellow-400' : 'bg-green-400' 
-                          : 'bg-gray-600'}`}
-                      />
-                    ))}
-                  </div>
-                  <p className="text-xs mt-1 text-gray-400">
-                    {passwordStrength === 0 ? '' : 
-                     passwordStrength <= 2 ? 'Weak password' : 
-                     passwordStrength <= 3 ? 'Moderate password' : 'Strong password'}
-                  </p>
+
+              <div className="mt-2">
+                <div className="flex gap-1 h-1.5">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div
+                      key={i}
+                      className={`flex-1 rounded-full ${
+                        i <= passwordStrength
+                          ? passwordStrength <= 2
+                            ? "bg-red-400"
+                            : passwordStrength <= 3
+                            ? "bg-yellow-400"
+                            : "bg-green-400"
+                          : "bg-gray-600"
+                      }`}
+                    />
+                  ))}
                 </div>
+                <p className="text-xs mt-1 text-gray-400">
+                  {passwordStrength === 0
+                    ? ""
+                    : passwordStrength <= 2
+                    ? "Weak password"
+                    : passwordStrength <= 3
+                    ? "Moderate password"
+                    : "Strong password"}
+                </p>
+              </div>
             </div>
 
-              <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300 mb-2">
-                  Confirm Password
-                </label>
-                <div className="relative">
-                  <input
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    type={confirmPasswordVisible ? "text" : "password"}
-                    autoComplete="new-password"
-                    required
-                    className="w-full bg-gray-700 border border-gray-600 rounded-lg py-3 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition pr-12"
-                    placeholder="Confirm your password"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                  />
-                  <button
-                    type="button"
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                    onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
-                    aria-label={confirmPasswordVisible ? "Hide password" : "Show password"}
-                  >
-                    {confirmPasswordVisible ? (
-                      <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                      </svg>
-                    ) : (
-                      <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.88l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-                      </svg>
-                    )}
-                  </button>
-                </div>
+            <div className="w-1/2">
+              {/* <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium text-gray-300 mb-2"
+              >
+                Confirm Password
+              </label> */}
+              <div className="relative">
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type={confirmPasswordVisible ? "text" : "password"}
+                  autoComplete="new-password"
+                  required
+                  className="w-full bg-gray-700 border border-gray-600 rounded-lg py-3 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/80 focus:border-transparent transition pr-12"
+                  placeholder="Confirm your password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  onClick={() =>
+                    setConfirmPasswordVisible(!confirmPasswordVisible)
+                  }
+                  aria-label={
+                    confirmPasswordVisible ? "Hide password" : "Show password"
+                  }
+                >
+                  {confirmPasswordVisible ? (
+                    <svg
+                      className="h-5 w-5 text-gray-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      className="h-5 w-5 text-gray-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.88l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
+                      />
+                    </svg>
+                  )}
+                </button>
               </div>
-           
+            </div>
+            </div>
 
-            
-              <div className="flex items-start">
-                <div className="flex items-center h-5">
-                  <input
-                    id="terms"
-                    name="terms"
-                    type="checkbox"
-                    required
-                    className="h-4 w-4 text-purple-500 focus:ring-purple-500 border-gray-600 rounded bg-gray-700"
-                  />
-                </div>
-                <div className="ml-3 text-sm">
-                  <label htmlFor="terms" className="font-medium text-gray-300">
-                    I agree to the <Link to="/terms" className="text-purple-400 hover:underline">Terms</Link> and <Link to="/privacy" className="text-purple-400 hover:underline">Privacy Policy</Link>
-                  </label>
-                </div>
+            <div className="flex items-start">
+              <div className="flex items-center h-5">
+                <input
+                  id="terms"
+                  name="terms"
+                  type="checkbox"
+                  required
+                  className="h-4 w-4 text-gradient focus:ring-text-gradient border-gray-600 rounded bg-gray-700"
+                />
               </div>
-           
+              <div className="ml-3 text-sm">
+                <label
+                  htmlFor="terms"
+                  className="font-extralight text-gray-300"
+                >
+                  I agree to the{" "}
+                  <Link
+                    to="/terms"
+                    className=" font-medium text-sm hover:underline"
+                  >
+                    Terms
+                  </Link>{" "}
+                  and{" "}
+                  <Link
+                    to="/privacy"
+                    className="font-medium text-sm hover:underline"
+                  >
+                    Privacy Policy
+                  </Link>
+                </label>
+              </div>
+            </div>
 
             <motion.button
               type="submit"
               disabled={loading}
-              className="w-full flex justify-center py-3 px-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-medium rounded-lg hover:from-purple-700 hover:to-indigo-700 transition-all shadow-lg"
+              className="  w-full flex justify-center py-3 px-4 gradient-bg4 hover:gradient-bg2 text-white font-medium rounded-lg  transition-all duration-700 shadow-lg"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -651,12 +755,16 @@ const Register = () => {
                   <motion.div
                     className="w-5 h-5 border-2 border-white border-t-transparent rounded-full mr-2"
                     animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                    transition={{
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
                   />
                   Creating Account...
                 </div>
               ) : (
-                'Register Now'
+                "Register Now"
               )}
             </motion.button>
           </form>
@@ -676,23 +784,45 @@ const Register = () => {
             <div className="mt-6 grid grid-cols-2 gap-3">
               <motion.button
                 type="button"
-                className="w-full inline-flex justify-center py-2.5 px-4 border border-gray-600 rounded-lg shadow-sm bg-gray-700 text-sm font-medium text-gray-300 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition"
+                className="w-full inline-flex justify-center py-2.5 px-4 border border-gray-600 rounded-lg shadow-sm  bg-transparent text-sm font-medium text-gray-300 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition"
                 whileHover={{ y: -2 }}
               >
-                <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" width="24" height="24">
-                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
-                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                <svg
+                  className="w-5 h-5 mr-2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                >
+                  <path
+                    fill="#4285F4"
+                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                  />
+                  <path
+                    fill="#34A853"
+                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  />
+                  <path
+                    fill="#FBBC05"
+                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                  />
+                  <path
+                    fill="#EA4335"
+                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                  />
                 </svg>
                 Google
               </motion.button>
               <motion.button
                 type="button"
-                className="w-full inline-flex justify-center py-2.5 px-4 border border-gray-600 rounded-lg shadow-sm bg-gray-700 text-sm font-medium text-gray-300 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition"
+                className="maineApple group w-full inline-flex justify-center py-2.5 px-4 border border-gray-600 rounded-lg shadow-sm bg-transparent text-sm font-medium text-gray-300 hover:bg-white/80 hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition"
                 whileHover={{ y: -2 }}
               >
-                <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" width="24" height="24" fill="#000000">
+                <svg
+                  className="w-5 h-5 mr-2 fill-white group-hover:fill-black transition"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                >
                   <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701z" />
                 </svg>
                 Apple
@@ -816,28 +946,27 @@ export default Register;
 //             }}
 //           />
 //         ))}
-        
+
 //         {/* Gradient Overlay */}
 //                 <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 to-gray-900/80"></div>
 
-        
 //         {/* Logo */}
 //         <div className="absolute top-8 left-8 z-10">
 //           <h1 className="text-3xl font-bold text-white">PortfolioPro</h1>
 //         </div>
-        
+
 //         {/* Back to Website Button */}
 //         <div className="absolute top-8 right-8 z-10">
 //           <button className="text-white hover:text-indigo-300 transition-colors flex items-center">
 //             Back to website <span className="ml-2">→</span>
 //           </button>
 //         </div>
-        
+
 //         {/* Caption */}
 //         <div className="absolute bottom-16 left-8 z-10">
 //           <p className="text-xl text-white font-light">Build stunning portfolios that get you hired</p>
 //         </div>
-        
+
 //         {/* Slider Indicators */}
 //         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 flex space-x-3">
 //           {sliderImages.map((_, index) => (
@@ -956,18 +1085,18 @@ export default Register;
 //               <div className="mt-2">
 //                 <div className="flex gap-1 h-1.5">
 //                   {[1, 2, 3, 4].map((i) => (
-//                     <div 
+//                     <div
 //                       key={i}
-//                       className={`flex-1 rounded-full ${i <= passwordStrength ? 
-//                         passwordStrength <= 2 ? 'bg-red-400' : 
-//                         passwordStrength <= 3 ? 'bg-yellow-400' : 'bg-green-400' 
+//                       className={`flex-1 rounded-full ${i <= passwordStrength ?
+//                         passwordStrength <= 2 ? 'bg-red-400' :
+//                         passwordStrength <= 3 ? 'bg-yellow-400' : 'bg-green-400'
 //                         : 'bg-gray-600'}`}
 //                     />
 //                   ))}
 //                 </div>
 //                 <p className="text-xs mt-1 text-gray-400">
-//                   {passwordStrength === 0 ? '' : 
-//                    passwordStrength <= 2 ? 'Weak password' : 
+//                   {passwordStrength === 0 ? '' :
+//                    passwordStrength <= 2 ? 'Weak password' :
 //                    passwordStrength <= 3 ? 'Moderate password' : 'Strong password'}
 //                 </p>
 //               </div>
@@ -1105,6 +1234,3 @@ export default Register;
 // };
 
 // export default Register;
-
-
-

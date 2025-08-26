@@ -276,7 +276,7 @@ const Login = () => {
   }, [portfolioImages.length]);
 
   return (
-    <div className="min-h-screen flex bg-gray-900">
+    <div className=" flex bg-gray-900">
       {/* Left Side - Portfolio Image Slider (Hidden on mobile) */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
         {/* Background Images */}
@@ -327,15 +327,15 @@ const Login = () => {
       </div>
 
       {/* Right Side - Login Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+      <div className="w-full lg:w-1/2 flex items-center justify-center ">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="w-full max-w-md bg-gray-800 rounded-xl shadow-2xl p-8 border border-gray-700"
+          className="w-full max-w-full bg-gray-800  shadow-2xl px-32 py-16 border border-gray-700"
         >
           <div className="text-center mb-8">
-            <motion.div
+            {/* <motion.div
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.5 }}
@@ -344,7 +344,7 @@ const Login = () => {
               <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary-500/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
-            </motion.div>
+            </motion.div> */}
             <h2 className="text-3xl font-bold text-white">
               Welcome Back
             </h2>
@@ -369,7 +369,7 @@ const Login = () => {
                 name="email"
                 type="email"
                 required
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/70 focus:border-transparent transition"
                 placeholder="Enter your email"
                 value={formData.email}
                 onChange={handleChange}
@@ -385,7 +385,7 @@ const Login = () => {
                 name="password"
                 type="password"
                 required
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/70 focus:border-transparent transition"
                 placeholder="Enter your password"
                 value={formData.password}
                 onChange={handleChange}
@@ -434,7 +434,7 @@ const Login = () => {
             </motion.button>
 
             <div className="text-center">
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-gray-200">
                 Don't have an account?{' '}
                 <Link
                   to="/register"
