@@ -485,16 +485,7 @@ const Register = () => {
           className="w-full max-w-full bg-gray-800 shadow-2xl px-32 py-16"
         >
           <div className="text-center mb-8">
-            {/* <motion.div
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center justify-center w-16 h-16 bg-indigo-900/20 rounded-xl mb-4 mx-auto"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-              </svg>
-            </motion.div> */}
+           
 
             <h2 className="text-3xl font-bold text-white">
               Create Your Account
@@ -506,12 +497,7 @@ const Register = () => {
 
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
-              {/* <label
-                htmlFor="fullName"
-                className="block text-sm font-medium text-gray-300 mb-2"
-              >
-                Full Name
-              </label> */}
+              
               <input
                 id="fullName"
                 name="fullName"
@@ -526,12 +512,7 @@ const Register = () => {
             </div>
 
             <div>
-              {/* <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-300 mb-2"
-              >
-                Email address
-              </label> */}
+              
               <input
                 id="email"
                 name="email"
@@ -642,12 +623,7 @@ const Register = () => {
             </div>
 
             <div className="w-1/2">
-              {/* <label
-                htmlFor="confirmPassword"
-                className="block text-sm font-medium text-gray-300 mb-2"
-              >
-                Confirm Password
-              </label> */}
+              
               <div className="relative">
                 <input
                   id="confirmPassword"
