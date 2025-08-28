@@ -26,66 +26,66 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('profile')
   const [saving, setSaving] = useState(false)
 
-  const [profileData, setProfileData] = useState({
-    fullName: user?.fullName || '',
-    title: user?.title || '',
-    tagLine: user?.tagLine || '',
-    skills: user?.skills?.join(', ') || '',
-    workExperience: user?.workExperience || 'Fresher',
-    socialLinks: {
-      github: user?.socialLinks?.github || '',
-      linkedin: user?.socialLinks?.linkedin || '',
-      twitter: user?.socialLinks?.twitter || '',
-    },
-  })
+  // const [profileData, setProfileData] = useState({
+  //   fullName: user?.fullName || '',
+  //   title: user?.title || '',
+  //   tagLine: user?.tagLine || '',
+  //   skills: user?.skills?.join(', ') || '',
+  //   workExperience: user?.workExperience || 'Fresher',
+  //   socialLinks: {
+  //     github: user?.socialLinks?.github || '',
+  //     linkedin: user?.socialLinks?.linkedin || '',
+  //     twitter: user?.socialLinks?.twitter || '',
+  //   },
+  // })
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target
-    if (name.startsWith('socialLinks.')) {
-      const socialField = name.split('.')[1]
-      setProfileData(prev => ({
-        ...prev,
-        socialLinks: {
-          ...prev.socialLinks,
-          [socialField]: value,
-        },
-      }))
-    } else {
-      setProfileData(prev => ({
-        ...prev,
-        [name]: value,
-      }))
-    }
-  }
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target
+  //   if (name.startsWith('socialLinks.')) {
+  //     const socialField = name.split('.')[1]
+  //     setProfileData(prev => ({
+  //       ...prev,
+  //       socialLinks: {
+  //         ...prev.socialLinks,
+  //         [socialField]: value,
+  //       },
+  //     }))
+  //   } else {
+  //     setProfileData(prev => ({
+  //       ...prev,
+  //       [name]: value,
+  //     }))
+  //   }
+  // }
 
-  const handleSaveProfile = async () => {
-    setSaving(true)
-    try {
-      const updateData = {
-        ...profileData,
-        skills: profileData.skills.split(',').map(skill => skill.trim()).filter(Boolean),
-      }
-      await dispatch(updateProfile(updateData)).unwrap()
-      toast.success('Profile updated successfully!')
-    } catch (error) {
-      toast.error(error || 'Failed to update profile')
-    } finally {
-      setSaving(false)
-    }
-  }
+  // const handleSaveProfile = async () => {
+  //   setSaving(true)
+  //   try {
+  //     const updateData = {
+  //       ...profileData,
+  //       skills: profileData.skills.split(',').map(skill => skill.trim()).filter(Boolean),
+  //     }
+  //     await dispatch(updateProfile(updateData)).unwrap()
+  //     toast.success('Profile updated successfully!')
+  //   } catch (error) {
+  //     toast.error(error || 'Failed to update profile')
+  //   } finally {
+  //     setSaving(false)
+  //   }
+  // }
 
-  const handleFileUpload = async (fileUrl, type) => {
-    try {
-      const updateData = type === 'image'
-        ? { profileImgUrl: fileUrl }
-        : { resumeUrl: fileUrl }
+  // const handleFileUpload = async (fileUrl, type) => {
+  //   try {
+  //     const updateData = type === 'image'
+  //       ? { profileImgUrl: fileUrl }
+  //       : { resumeUrl: fileUrl }
 
-      await dispatch(updateProfile(updateData)).unwrap()
-      toast.success(`${type === 'image' ? 'Profile image' : 'Resume'} updated successfully!`)
-    } catch (error) {
-      toast.error(error || 'Failed to update file')
-    }
-  }
+  //     await dispatch(updateProfile(updateData)).unwrap()
+  //     toast.success(`${type === 'image' ? 'Profile image' : 'Resume'} updated successfully!`)
+  //   } catch (error) {
+  //     toast.error(error || 'Failed to update file')
+  //   }
+  // }
 
   const tabs = [
     { id: 'profile', label: 'Profile', icon: '👤', description: 'Manage your basic information' },
@@ -123,7 +123,7 @@ const Dashboard = () => {
       animate={{ opacity: 1 }}
       className="min-h-screen bg-gray-50 dark:bg-dark-900 py-8"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ y: -20 }}
           animate={{ y: 0 }}
@@ -152,7 +152,7 @@ const Dashboard = () => {
           )}
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4  gap-8">
           <motion.div
             initial={{ x: -20 }}
             animate={{ x: 0 }}
@@ -188,7 +188,7 @@ const Dashboard = () => {
             animate={{ x: 0 }}
             className="lg:col-span-3"
           >
-            <div className="card p-8">
+            <div className="card p-8 px-16">
               {activeTab === 'profile' && <ProfileManager />}
               {activeTab === 'projects' && <ProjectManager />}
               {activeTab === 'experience' && <ExperienceManager />}

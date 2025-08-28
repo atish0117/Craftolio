@@ -643,7 +643,7 @@ const Portfolio = () => {
   }
 
   const { user, projects } = data
-  const sectionOrder = user.sectionOrder || ['hero', 'skills', 'projects', 'education', 'experience', 'certifications', 'testimonials', 'contact']
+  const sectionOrder = user.sectionOrder || ['hero', 'about', 'skills', 'projects', 'education', 'experience', 'certifications', 'testimonials', 'contact']
 
   // Handle visibleSections properly
   let visibleSections = {}
@@ -657,6 +657,7 @@ const Portfolio = () => {
        // Default all sections to visible
        visibleSections = {
         hero: true,
+        about: true,
         skills: true,
         projects: true,
         education: true,
