@@ -266,7 +266,8 @@ import toast from 'react-hot-toast'
 
 // ✅ Default sections list
 const defaultSections = [
-  { id: 'hero', label: 'Hero Section', icon: '🏠', description: 'Introduction and profile image' },
+  { id: 'hero', label: 'Hero Section', icon: '🏠', description: 'tagLines and profile image' },
+  { id: 'about', label: 'About Section', icon: 'ℹ️', description: 'Introduction and what do you' },
   { id: 'skills', label: 'Skills', icon: '⚡', description: 'Technical skills and expertise' },
   { id: 'projects', label: 'Projects', icon: '💼', description: 'Portfolio projects showcase' },
   { id: 'education', label: 'Education', icon: '🎓', description: 'Educational background' },
