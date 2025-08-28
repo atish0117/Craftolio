@@ -149,25 +149,29 @@ const ProfileManager = () => {
         </motion.button>
       </div>
 
-      {/* Section Navigation */}
-      <div className="flex space-x-1 bg-gray-100 dark:bg-dark-700 rounded-lg p-1">
-        {sections.map((section) => (
-          <button
-            key={section.id}
-            onClick={() => setActiveSection(section.id)}
-            className={`
-              flex items-center space-x-2 px-4 py-2 rounded-md text-sm font-medium transition-all duration-200
-              ${activeSection === section.id
-              ? 'bg-white dark:bg-dark-600 text-primary-600 dark:text-primary-400 shadow-sm'
-              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-            }
-            `}
-          >
-            <span>{section.icon}</span>
-            <span>{section.label}</span>
-          </button>
-        ))}
-      </div>
+   {/* Section Navigation */}
+<div className="flex space-x-1 bg-gray-100 dark:bg-dark-700 rounded-lg p-1">
+  {sections.map((section) => (
+    <button
+      key={section.id}
+      onClick={() => setActiveSection(section.id)}
+      className={`
+        flex items-center space-x-2 px-4 py-2 rounded-md text-sm font-medium transition-all duration-200
+        ${activeSection === section.id
+          ? 'bg-white dark:bg-dark-600 text-primary-600 dark:text-primary-400 shadow-sm'
+          : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+        }
+      `}
+    >
+      {/* Icon always visible */}
+      <span>{section.icon}</span>
+
+      {/* Label hidden on small, visible on md+ */}
+      <span className="hidden md:inline">{section.label}</span>
+    </button>
+  ))}
+</div>
+
 
       {/* Content Sections */}
       <AnimatePresence mode="wait">
