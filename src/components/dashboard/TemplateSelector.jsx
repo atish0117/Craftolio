@@ -216,15 +216,15 @@ const templates = [
     features: ['Monochrome elegance', 'Geometric visuals', 'Sophisticated animations']
 
   },
-{
-      id: 'vibrant-purple',
-    name: 'Vibrant Purple Magic',
-    description: 'Magical purple theme with enchanting animations and vibrant colors',
-    // icon: Sparkles,
-    // component: VibrantPurpleTemplate,
-    preview: 'bg-gradient-to-br from-purple-900 via-pink-600 to-indigo-600',
-    color: 'text-purple-400'
-  },
+// {
+//       id: 'vibrant-purple',
+//     name: 'Vibrant Purple Magic',
+//     description: 'Magical purple theme with enchanting animations and vibrant colors',
+//     // icon: Sparkles,
+//     // component: VibrantPurpleTemplate,
+//     preview: 'bg-gradient-to-br from-purple-900 via-pink-600 to-indigo-600',
+//     color: 'text-purple-400'
+//   },
 ]
 
 
