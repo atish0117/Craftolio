@@ -2,10 +2,16 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
-    fullName: { type: String, required: true },
+    fullName: { type: String,},
     username: { type: String, required: true, unique: true, trim: true, index: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+password: { type: String }, // make optional for OAuth
+providers: [{
+  provider: { type: String, enum: ['google','github','linkedin'] },
+  providerUserId: String,    // e.g. Google sub, GitHub id, LinkedIn id
+  createdAt: { type: Date, default: Date.now }
+}],
+
     // Profile Fields
     profileImgUrl: { type: String, default: "" },
     resumeUrl: { type: String, default: "" },
