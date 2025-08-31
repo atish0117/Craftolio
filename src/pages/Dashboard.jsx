@@ -19,11 +19,16 @@ import SEOManager from '../components/dashboard/SEOManager'
 import IntegrationsManager from '../components/dashboard/IntegrationsManager'
 import QuickActions from '../components/ui/QuickActions'
 import toast from 'react-hot-toast'
+import { useLocation } from 'react-router-dom';
+
 
 const Dashboard = () => {
   const dispatch = useDispatch()
+  const location = useLocation();
   const { user, loading } = useSelector((state) => state.auth)
-  const [activeTab, setActiveTab] = useState('profile')
+  const params = new URLSearchParams(location.search);
+  const initialTab = params.get('tab') || 'profile';
+  const [activeTab, setActiveTab] = useState(initialTab)
   const [saving, setSaving] = useState(false)
 
   // const [profileData, setProfileData] = useState({
