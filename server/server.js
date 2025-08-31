@@ -11,6 +11,11 @@ import portfolioRoutes from './routes/portfolio.js'
 import projectRoutes from './routes/projects.js'
 import seoRoutes from './routes/seo.js'
 
+// Import oauthRouter
+import oauthRoutes from './routes/oauthRoutes.js';
+
+import integrationRoutes from './routes/integrationRoutes.js';
+
 dotenv.config()
 
 const app = express()
@@ -48,6 +53,8 @@ app.use('/api/auth', authRoutes)
 app.use('/api/portfolio', portfolioRoutes)
 app.use('/api/projects', projectRoutes)
 app.use('/api/seo', seoRoutes)
+app.use('/oauth', oauthRoutes);
+app.use('/integrations', integrationRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
