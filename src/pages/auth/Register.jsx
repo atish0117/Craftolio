@@ -322,7 +322,7 @@
 
 // second register form design
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import { register, clearError } from "../../store/slices/authSlice";
@@ -330,6 +330,7 @@ import toast from "react-hot-toast";
 
 const Register = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const { loading, error } = useSelector((state) => state.auth);
   const [activeSlide, setActiveSlide] = useState(0);
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -411,14 +412,20 @@ const Register = () => {
         })
       ).unwrap();
       toast.success("Registration successful!");
+      navigate('/dashboard')
     } catch (err) {
       toast.error(err || "Registration failed");
     }
   };
 
+  const handleSocialLogin = (provider) => {
+    console.log(`Initiating ${provider} OAuth registration`)
+    window.location.href = `/api/auth/${provider}?returnUrl=/dashboard`
+  }
+
   useEffect(() => {
     dispatch(clearError());
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className="flex bg-gray-900">
@@ -760,6 +767,7 @@ const Register = () => {
             <div className="mt-6 grid grid-cols-2 gap-3">
               <motion.button
                 type="button"
+                onClick={() => handleSocialLogin('google')}
                 className="w-full inline-flex justify-center py-2.5 px-4 border border-gray-600 rounded-lg shadow-sm  bg-transparent text-sm font-medium text-gray-300 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition"
                 whileHover={{ y: -2 }}
               >
@@ -790,6 +798,7 @@ const Register = () => {
               </motion.button>
               <motion.button
                 type="button"
+                onClick={() => handleSocialLogin('apple')}
                 className="maineApple group w-full inline-flex justify-center py-2.5 px-4 border border-gray-600 rounded-lg shadow-sm bg-transparent text-sm font-medium text-gray-300 hover:bg-white/80 hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition"
                 whileHover={{ y: -2 }}
               >
@@ -832,6 +841,37 @@ const Register = () => {
 
             </div>
           </div>
+
+             {/* Benefits */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-center"
+        >
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+            What you'll get:
+          </p>
+          <div className="grid grid-cols-2 gap-4 text-xs text-gray-400 dark:text-gray-500">
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <span>Professional Templates</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+              <span>Social Integration</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+              <span>SEO Optimization</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-pink-500 rounded-full"></div>
+              <span>Analytics Dashboard</span>
+            </div>
+          </div>
+        </motion.div>
+
         </motion.div>
       </div>
     </div>
