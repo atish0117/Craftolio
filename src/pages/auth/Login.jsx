@@ -216,7 +216,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import { login, clearError } from '../../store/slices/authSlice';
@@ -224,6 +224,7 @@ import toast from 'react-hot-toast';
 // second login form design
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const { loading, error } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
@@ -251,10 +252,15 @@ const Login = () => {
     try {
       await dispatch(login(formData)).unwrap();
       toast.success('Login successful!');
+      navigate('/dashboard')
     } catch (err) {
       toast.error(err || 'Login failed');
     }
   };
+  const handleSocialLogin = (provider) => {
+    console.log(`Initiating ${provider} OAuth`)
+    window.location.href = `/api/auth/${provider}?returnUrl=/dashboard`
+  }
 
   useEffect(() => {
     dispatch(clearError());
@@ -478,6 +484,7 @@ const Login = () => {
                 </svg>
                 Apple
               </motion.button>
+
               <motion.button
               type="button"
               onClick={() => handleSocialLogin('github')}
@@ -507,6 +514,33 @@ const Login = () => {
             </div>
             
           </div>
+
+           {/* Features Preview */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-center"
+        >
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+            Join thousands of professionals showcasing their work
+          </p>
+          <div className="flex justify-center space-x-6 text-xs text-gray-400 dark:text-gray-500">
+            <div className="flex items-center space-x-1">
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <span>Free Forever</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+              <span>6 Templates</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+              <span>Social Integration</span>
+            </div>
+          </div>
+        </motion.div>
+        
         </motion.div>
       </div>
     </div>
