@@ -48,6 +48,25 @@ export const checkAuth = createAsyncThunk(
       const response = await authAPI.getProfile()
       return response.data
     } catch (error) {
+       // Try to refresh token before giving up
+      const refreshToken = localStorage.getItem('refreshToken')
+      if (refreshToken) {
+        try {
+          const refreshResponse = await authAPI.refreshToken(refreshToken)
+          localStorage.setItem('token', refreshResponse.data.token)
+          if (refreshResponse.data.refreshToken) {
+            localStorage.setItem('refreshToken', refreshResponse.data.refreshToken)
+          }
+          
+          const profileResponse = await authAPI.getProfile()
+          return profileResponse.data
+        } catch (refreshError) {
+          localStorage.removeItem('token')
+          localStorage.removeItem('refreshToken')
+          return rejectWithValue('Session expired')
+        }
+      }
+      localStorage.removeItem('refreshToken')
       localStorage.removeItem('token')
       return rejectWithValue(error.response?.data?.message || 'Authentication failed')
     }
@@ -73,6 +92,7 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       localStorage.removeItem('token')
+      localStorage.removeItem('refreshToken')
       state.user = null
       state.token = null
       state.isAuthenticated = false
@@ -133,6 +153,7 @@ const authSlice = createSlice({
       // Update Profile
       .addCase(updateProfile.fulfilled, (state, action) => {
         if (state.user) {
+          // Merge the updated data with existing user data
           state.user = { ...state.user, ...action.payload.user }
         } else {
           state.user = action.payload.user
