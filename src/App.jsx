@@ -16,6 +16,7 @@ import ForgotPassword from './pages/auth/ForgotPassword'
 import ResetPassword from './pages/auth/ResetPassword' 
 import AuroraStudioTemplate from "./components/portfolio/templates/AuroraStudioTemplate"
 import { useLocation } from 'react-router-dom'
+import AuthCallback from './pages/auth/AuthCallback'
 
 function App() {
   const dispatch = useDispatch()
@@ -62,6 +63,7 @@ function App() {
                   isAuthenticated ? <Dashboard /> : <Navigate to="/login" replace />
                 } 
               />
+              <Route path="/auth/callback" element={<AuthCallback />} />
 
                 <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/reset-password/:token" element={<ResetPassword />} />
