@@ -6,11 +6,35 @@ const userSchema = new mongoose.Schema(
     username: { type: String, required: true, unique: true, trim: true, index: true },
     email: { type: String, required: true, unique: true },
 password: { type: String }, // make optional for OAuth
-providers: [{
-  provider: { type: String, enum: ['google','github','linkedin'] },
-  providerUserId: String,    // e.g. Google sub, GitHub id, LinkedIn id
-  createdAt: { type: Date, default: Date.now }
-}],
+ // ----------------- Social Authentication -----------------
+    socialAuth: {
+      github: {
+        id: String,
+        username: String,
+        accessToken: String, // consider encrypting
+        profileUrl: String,
+        lastSync: Date
+      },
+      google: {
+        id: String,
+        email: String,
+        accessToken: String, // consider encrypting
+        lastSync: Date
+      },
+      linkedin: {
+        id: String,
+        username: String,
+        accessToken: String, //consider encrypting
+        profileUrl: String,
+        lastSync: Date
+      }
+    },
+
+    authProvider: {
+      type: String,
+      enum: ["local", "github", "google", "linkedin"],
+      default: "local"
+    },
 
     // Profile Fields
     profileImgUrl: { type: String, default: "" },
@@ -30,14 +54,14 @@ providers: [{
       website: String,
       
     },
-    skills: [String],
+    skills: [{ type: String }],
 
       aboutSections: [{
       id: String,
       title: String,
       description: String,
     }],
-      languages: [String],
+      languages: [{ type: String }],
       timezone: String,
       hourlyRate: String,
 
@@ -110,6 +134,26 @@ providers: [{
       }
     ],
     selectedTemplate: { type: String, default: "minimal" },
+
+
+      // ----------------- Integration Settings -----------------
+    integrationSettings: {
+      github: {
+        autoImportRepos: { type: Boolean, default: true },
+        syncFrequency: { type: String, enum: ["daily", "weekly", "manual"], default: "weekly" },
+        importPrivateRepos: { type: Boolean, default: false }
+      },
+      linkedin: {
+        syncExperience: { type: Boolean, default: true },
+        syncSkills: { type: Boolean, default: true },
+        syncEducation: { type: Boolean, default: true }
+      },
+      analytics: {
+        googleAnalyticsId: String,
+        hotjarId: String,
+        trackingEnabled: { type: Boolean, default: true }
+      }
+    },
 
      // SEO Fields
     seoData: {
