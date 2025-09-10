@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken'
 import { body, validationResult } from 'express-validator'
 import User from '../models/User.js'
 import { auth } from '../middleware/auth.js'
+import { generateTokens } from '../utils/jwt.js'
 
 const router = express.Router()
 
@@ -40,16 +41,12 @@ router.post('/register', [
 
     await user.save()
 
-    // Generate JWT
-    const token = jwt.sign(
-      { userId: user._id },
-      process.env.JWT_SECRET || 'fallback-secret',
-      { expiresIn: '7d' }
-    )
+    // Generate JWT tokens
+   const tokens = generateTokens(user)
 
     res.status(201).json({
       message: 'User created successfully',
-      token,
+      ...tokens,
       user: {
         _id: user._id,
         fullName: user.fullName,
@@ -77,7 +74,10 @@ router.post('/register', [
         certifications: user.certifications,
         sectionOrder: user.sectionOrder,
         visibleSections: user.visibleSections,
-        selectedTemplate: user.selectedTemplate
+        selectedTemplate: user.selectedTemplate,
+        authProvider: user.authProvider,
+        createdAt: user.createdAt
+
       }
     })
   } catch (error) {
@@ -105,22 +105,26 @@ router.post('/login', [
       return res.status(400).json({ message: 'Invalid credentials' })
     }
 
+      // Check if user has a password (not OAuth-only account)
+    if (!user.password) {
+      return res.status(400).json({ 
+        message: 'This account was created with social login. Please use the social login button.',
+        authProvider: user.authProvider
+      })
+    }
+
     // Check password
     const isMatch = await bcrypt.compare(password, user.password)
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid credentials' })
     }
 
-    // Generate JWT
-    const token = jwt.sign(
-      { userId: user._id },
-      process.env.JWT_SECRET || 'fallback-secret',
-      { expiresIn: '7d' }
-    )
+    // Generate JWT tokens
+    const tokens = generateTokens(user)
 
     res.json({
       message: 'Login successful',
-      token,
+      ...tokens,
       user: {
         _id: user._id,
         fullName: user.fullName,
@@ -148,7 +152,9 @@ router.post('/login', [
         certifications: user.certifications,
         sectionOrder: user.sectionOrder,
         visibleSections: user.visibleSections,
-        selectedTemplate: user.selectedTemplate
+        selectedTemplate: user.selectedTemplate,
+        authProvider: user.authProvider,
+        createdAt: user.createdAt
       }
     })
   } catch (error) {
@@ -169,7 +175,7 @@ router.get('/profile', auth, async (req, res) => {
         profileImgUrl: req.user.profileImgUrl,
         resumeUrl: req.user.resumeUrl,
         title: req.user.title,
-         phoneNumber: req.user.phoneNumber,
+        phoneNumber: req.user.phoneNumber,
         location: req.user.location,
         intro: req.user.intro,
         tagLine: req.user.tagLine,
@@ -188,7 +194,9 @@ router.get('/profile', auth, async (req, res) => {
         certifications: req.user.certifications,
         sectionOrder: req.user.sectionOrder,
         visibleSections: req.user.visibleSections,
-        selectedTemplate: req.user.selectedTemplate
+        selectedTemplate: req.user.selectedTemplate,
+        authProvider: req.user.authProvider,
+        createdAt: req.user.createdAt
       }
     })
   } catch (error) {
@@ -247,7 +255,7 @@ router.put('/profile', auth, async (req, res) => {
     if (socialLinks) updateData.socialLinks = socialLinks
     if (profileImgUrl !== undefined) updateData.profileImgUrl = profileImgUrl
     if (resumeUrl !== undefined) updateData.resumeUrl = resumeUrl
-     if (aboutSections) updateData.aboutSections = aboutSections
+    if (aboutSections) updateData.aboutSections = aboutSections
     if (availability) updateData.availability = availability
     if (hourlyRate !== undefined) updateData.hourlyRate = hourlyRate
     if (preferredWorkType) updateData.preferredWorkType = preferredWorkType
@@ -304,12 +312,36 @@ router.put('/profile', auth, async (req, res) => {
         certifications: user.certifications,
         sectionOrder: user.sectionOrder,
         visibleSections: user.visibleSections,
-        selectedTemplate: user.selectedTemplate
+        selectedTemplate: user.selectedTemplate,
+        authProvider: user.authProvider,
+        createdAt: user.createdAt
       }
     })
   } catch (error) {
     console.error('Update profile error:', error)
     res.status(500).json({ message: 'Server error during profile update' })
+  }
+})
+
+// Refresh Token
+router.post('/refresh', async (req, res) => {
+  try {
+    const { refreshToken } = req.body
+    
+    if (!refreshToken) {
+      return res.status(401).json({ message: 'Refresh token required' })
+    }
+
+    const { refreshAccessToken } = await import('../utils/jwt.js')
+    const tokens = await refreshAccessToken(refreshToken)
+    
+    res.json({
+      message: 'Token refreshed successfully',
+      ...tokens
+    })
+  } catch (error) {
+    console.error('Token refresh error:', error)
+    res.status(401).json({ message: 'Invalid refresh token' })
   }
 })
 
